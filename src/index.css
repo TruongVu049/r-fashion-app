@@ -2,10 +2,174 @@
 @tailwind components;
 @tailwind utilities;
 
+
 *,
-::after,
-::before {
-    padding: 0;
+::before,
+::after {
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+input,
+textarea,
+button,
+select,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a:focus,
+a:visited a:active {
+    outline: none;
+}
+
+html {
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: sans-serif;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+}
+
+::selection {
+    background-color: #ff4545;
+    color: #fff;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+button {
+    background: none;
+    font: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+img {
+    width: 100%;
+    min-height: 100%;
+    vertical-align: middle;
+}
+
+img,
+button,
+a {
+    display: block;
+}
+
+span {
+    display: inline-block;
+}
+
+
+input {
+    display: block;
+    width: 100%;
+    font: inherit;
+}
+
+input::placeholder {
+    font: inherit;
+}
+
+body {
+    background: #fff;
+    scroll-behavior: smooth;
+    position: relative;
+}
+
+/* ======================================== scrollbar style ======================================= */
+
+body::-webkit-scrollbar {
+    width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    background: #fff;
+    border-left: 1px solid var(--cultured);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: hsl(0, 0%, 80%);
+    border: 3px solid #fff;
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: hsl(0, 0%, 70%);
+}
+
+/* swiper */
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    border-radius: 4px;
+    color: #fff !important;
+    padding: 20px !important;
+    background: rgb(0 0 0 / 40%);
+    transition: 0.3s;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background: rgb(0 0 0 / 80%);
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+    font-size: 18px !important;
+}
+
+.swiper-pagination-bullet-active {
+    background: #ff4545 !important;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    background: #2e2e2e;
+    pointer-events: auto;
+    -webkit-appearance: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+input[type="range"]::-moz-range-thumb {
+    height: 22px;
+    width: 22px;
+    border: none;
+    border-radius: 50%;
+    background: #2e2e2e;
+    pointer-events: auto;
+    -moz-appearance: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
 }

@@ -1,63 +1,83 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import Logo from "../assets/images/logo.png";
 import { links } from "../constants";
-import { FaBars, FaXmark, FaUserLarge } from "react-icons/fa6";
-import { AiOutlineSearch } from "react-icons/ai";
-import { BsCart2 } from "react-icons/bs";
+import { FaBars, FaXmark } from "react-icons/fa6";
+
+import SearchBar from "./SearchBar";
+import Cart from "./Cart";
+import User from "./User";
+
 const Navbar = () => {
   const [isShow, setIsShow] = useState(false);
 
   function handleShow() {
     setIsShow(!isShow);
   }
+
   return (
     <header>
-      <nav className="xl:container mx-auto lg:container sm:container ">
-        <div className="flex sm:items-center justify-between items-center">
-          <div className="py-6 px-3 mx-1">
-            <img className="sm:h-10 sm:w-10 h-6 w-6" src={Logo} alt="logo" />
-          </div>
-          <ul className="md:flex hidden">
-            {links.map(({ id, name, path }) => {
-              return (
-                <li className="text-secondColor font-semibold " key={id}>
-                  <Link
-                    className=" py-6 px-3 mx-1  duration-300 relative 
+      <nav
+        className={`shadow-lg
+        bg-while10Color fixed z-[200] top-0  w-full duration-500 ease-linear delay-0 animate-animationFadeIn border-solid border-b border-[#ececec]
+      }`}
+      >
+        <div
+          className={`xl:container mx-auto lg:container sm:container 
+      
+      `}
+        >
+          <div className="flex sm:items-center justify-between items-center">
+            <div className="py-6 px-3 mx-1">
+              <NavLink to="/">
+                <img
+                  className="sm:h-10 sm:w-10 h-8 w-8"
+                  src={Logo}
+                  alt="logo"
+                />
+              </NavLink>
+            </div>
+            <ul className="md:flex hidden">
+              {links.map(({ id, name, path }) => {
+                return (
+                  <li className="text-secondColor font-semibold " key={id}>
+                    <NavLink
+                      style={({ isActive, isPending }) => {
+                        return {
+                          color: isActive ? "#ff4545" : "",
+                        };
+                      }}
+                      className=" py-6 px-3 mx-1  duration-300 relative 
                     after:content-[''] after:absolute after:left-0 after:bottom-[10px] after:h-[2.5px] after:ease-linear
                     after:w-full after:bg-primaryColor after:scale-x-0 after:duration-300 after:origin-bottom-left
                      hover:text-primaryColor hover:after:scale-x-[1]"
-                    to={path}
-                  >
-                    {name}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-          <div className="flex items-center cursor-pointer">
-            <div className="hover:text-primaryColor duration-300 py-6 px-3 mx-1 font-semibold">
-              <AiOutlineSearch className="text-[20px]" />
-            </div>
-            <div className="hover:text-primaryColor duration-300 py-6 px-3  mx-1">
-              <FaUserLarge className="text-[20px]" />
-            </div>
-            <div className="hover:text-primaryColor duration-300 py-6 px-3  mx-1">
-              <BsCart2 className="text-[20px]" />
-            </div>
-            <div
-              onClick={handleShow}
-              className="hover:text-primaryColor duration-300 py-6 px-3  mx-1"
-            >
-              <FaBars className="md:hidden " />
+                      to={path}
+                    >
+                      {name}
+                    </NavLink>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="flex items-center cursor-pointer">
+              <SearchBar />
+
+              <User />
+              <Cart />
+              <div
+                onClick={handleShow}
+                className="hover:text-primaryColor duration-300 py-6 px-3  mx-1 md:hidden"
+              >
+                <FaBars />
+              </div>
             </div>
           </div>
         </div>
       </nav>
       <div
-        className={`fixed top-0 right-0 h-[100vh] w-full  duration-300 delay-0 ease-linear ${
+        className={`z-[999] fixed top-0 right-0 h-[100vh] w-full  duration-300 delay-0 ease-linear ${
           isShow ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
@@ -83,12 +103,18 @@ const Navbar = () => {
               {links.map(({ id, name, path }) => {
                 return (
                   <li key={id}>
-                    <Link
+                    <NavLink
+                      onClick={handleShow}
                       to={path}
+                      style={({ isActive, isPending }) => {
+                        return {
+                          color: isActive ? "#ff4545" : "",
+                        };
+                      }}
                       className="block p-[22px] border-t-2 border-solid border-[#eeeeee] duration-300 hover:text-primaryColor"
                     >
                       {name}
-                    </Link>
+                    </NavLink>
                   </li>
                 );
               })}

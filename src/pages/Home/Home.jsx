@@ -1,11 +1,11 @@
-
+import { Banner, Deals } from "../../components";
 const Home = () => {
   return (
     <>
-    <div>Home</div>
-    <h1 className="">hêllo</h1>
+      <Banner />
+      <Deals />
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

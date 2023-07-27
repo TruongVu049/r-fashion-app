@@ -5,5 +5,22 @@ import SanPham from "./SanPham/SanPham";
 import Login from "./Login/Login";
 import NoPage from "./NoPage/NoPage";
 import Layout from "./Layout/Layout";
-
-export { Home, Blog, Contact, SanPham, Login, NoPage, Layout };
+import ProductDetail from "./ProductDetail/ProductDetail";
+import ShoppingCart from "./ShoppingCart/ShoppingCart";
+import Checkout from "./Checkout/Checkout";
+import Register from "./Login/Register";
+import UserProfile from "./UserProfile/UserProfile";
+export {
+  Home,
+  Blog,
+  Contact,
+  SanPham,
+  Login,
+  NoPage,
+  Layout,
+  ProductDetail,
+  ShoppingCart,
+  Checkout,
+  Register,
+  UserProfile,
+};
