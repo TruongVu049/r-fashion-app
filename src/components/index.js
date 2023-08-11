@@ -17,6 +17,14 @@ import ProductRelations from "./ProductRelations";
 import Gallery from "./Gallery";
 import Deals from "./Deals";
 import CartSkeleton from "./CartSkeleton";
+import Counter from "./Counter";
+import ImageComponent from "./ImageComponent";
+import ProductOptions from "./ProductOptions";
+import OptionName from "./OptionName";
+import PopupModal from "./PopupModal";
+import Notification from "./Notification";
+import ProductTable from "./ProductTable";
+import CartTotal from "./CartTotal";
 export {
   Navbar,
   Footer,
@@ -37,4 +45,12 @@ export {
   Gallery,
   Deals,
   CartSkeleton,
+  Counter,
+  ImageComponent,
+  ProductOptions,
+  OptionName,
+  PopupModal,
+  Notification,
+  ProductTable,
+  CartTotal,
 };

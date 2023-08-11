@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from "react";
-import { Breadcrumb } from "../../components";
 import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 
@@ -7,7 +6,6 @@ import { emailRegex, passwordRegex } from "../../constants";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
-
   const [email, setEmail] = useState("");
   const [errEmail, setErrEmail] = useState(null);
   const [userName, setUserName] = useState("");

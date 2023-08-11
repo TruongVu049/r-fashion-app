@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Gallery = ({ urlImg }) => {
-  const [activeShow, setActiveShow] = useState(0);
+  const [activeShow, setActiveShow] = useState(urlImg[0]);
 
   return (
     <div className="lg:flex lg:items-start">
@@ -9,7 +9,7 @@ const Gallery = ({ urlImg }) => {
         <div className="max-w-xl overflow-hidden rounded-lg">
           <img
             className="h-full w-full max-w-full object-cover"
-            src={`${urlImg[activeShow]}`}
+            src={`${activeShow}`}
             alt="image"
           />
         </div>
@@ -20,10 +20,10 @@ const Gallery = ({ urlImg }) => {
             return (
               <button
                 key={img + index}
-                onClick={() => setActiveShow(index)}
+                onClick={() => setActiveShow(img)}
                 type="button"
                 className={`${
-                  index === activeShow && "border-primaryColor border-4"
+                  img === activeShow && "border-primaryColor border-4"
                 }
                 flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-[#dee2e6] border-solid text-center`}
               >

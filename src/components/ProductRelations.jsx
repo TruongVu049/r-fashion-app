@@ -1,11 +1,32 @@
-import React from "react";
-import useData from "../hooks/useData";
+import React, { useState } from "react";
 import CartProduct from "./CartProduct";
+import { useEffect } from "react";
+import axios from "axios";
 import { PiWarningOctagonLight } from "react-icons/pi";
 import CartSkeleton from "./CartSkeleton";
-const ProductRelations = ({ title, type }) => {
-  let products = useData(`http://localhost:5050/products/${type}`);
+const ProductRelations = ({ title, url }) => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    let ignore = false;
+
+    axios
+      .get(`http://localhost:5000/api/product/${url}`)
+      .then((res) => {
+        if (!ignore) {
+          setProducts(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    return () => {
+      ignore = true;
+    };
+  }, [url]);
+
   console.log(products);
+
   return (
     <div className="container mx-auto px-4">
       <h2 className="text-2xl font-semibold border-b border-gray-300">
@@ -13,18 +34,18 @@ const ProductRelations = ({ title, type }) => {
       </h2>
       {products && products.length > 0 ? (
         <div
-          className=" 
+          className="
       py-9 gap-4 grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2"
         >
-          {products.map((product) => {
+          {products.map((item) => {
             return (
               <CartProduct
-                key={product.SP_ID}
-                SP_ID={product.SP_ID}
-                Ten={product.Ten}
-                TenTH={product.TenTH}
-                GIA={product.Gia}
-                Img={product.Img}
+                key={item.product_id}
+                product_id={item.product_id}
+                product_name={item.product_name}
+                brand={item.brand}
+                price={item.price}
+                Img={item["images"].split("@")[0]}
               />
             );
           })}

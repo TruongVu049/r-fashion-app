@@ -1,56 +1,113 @@
-import { Link, useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { Breadcrumb } from "../../components";
+import { Link, json, useParams } from "react-router-dom";
+import { useContext, useEffect, useMemo, useRef } from "react";
+import {
+  Breadcrumb,
+  Notification,
+  PopupModal,
+  ProductOptions,
+} from "../../components";
 import { BsTruck } from "react-icons/bs";
 import { BiTaskX } from "react-icons/bi";
 import { AiFillStar } from "react-icons/ai";
-import { Accordion, ProductRelations, Gallery } from "../../components";
+import { AuthContext } from "../../context/AuthContext";
+import {
+  Accordion,
+  ProductRelations,
+  Gallery,
+  Counter,
+} from "../../components";
 import { useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
 import axios from "axios";
+import FormatPrice from "../../Helpers/FormatPrice";
+import { useCartContext } from "../../context/CartContext";
 const ProductDetail = () => {
+  const notificationRef = useRef(null);
+  const { isLogin } = useAuth();
   const [error, setError] = useState(false);
   const { productId } = useParams();
-  const [product, setProduct] = useState([]);
+  const { user } = useContext(AuthContext);
+  const { addCart } = useCartContext();
+  const [product, setProduct] = useState({
+    data: null,
+    colors: [],
+    sizes: [],
+    options: null,
+  });
 
+  function removeDuplicates(arr) {
+    return arr.filter((item, index) => arr.indexOf(item) === index);
+  }
+
+  console.log("render productdetail");
   useEffect(() => {
     let ignore = false;
     axios
       .get(`http://localhost:5000/api/product/${productId}`)
       .then((res) => {
         if (!ignore) {
-          setProduct(res.data);
+          console.log(res);
+          const colors = res.data.options.map((item) => {
+            return item.color;
+          });
+          const sizes = res.data.options.map((item) => {
+            return item.size;
+          });
+          setProduct({
+            data: res.data["data"],
+            colors: removeDuplicates(colors),
+            sizes: removeDuplicates(sizes),
+            options: res.data["options"],
+          });
         }
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        window.scrollTo(0, 0);
       });
     return () => {
       ignore = true;
     };
-  }, []);
+  }, [productId]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    // const form = e.target;
-    // const formData = new FormData(form);
-    // const formJson = Object.fromEntries(formData.entries());
-    // if (Object.keys(formJson).length == 0) {
-    //   setError(true);
-    // } else {
-    //   setError(false);
-    //   alert(JSON.stringify(formJson));
-    // }
+    if (isLogin()) {
+      const form = e.target;
+      const formData = new FormData(form);
+      const formJson = Object.fromEntries(formData.entries());
+      // const optionId = product.options.find((option) => {
+      //   if (option.color === formJson.color && option.size === formJson.size)
+      //     return option.product_option_id;
+      // });
+      addCart(productId, formJson);
+    } else {
+      window.location.href = "/login";
+    }
   }
-  useEffect(() => {
-    console.log("useEffect");
-    window.scrollTo(0, 0);
-  }, [productId]);
+
+  // if (res.status === 200) {
+  //   notificationRef.current.show(
+  //     true,
+  //     "Sản phẩm đã được thêm vào Giỏ hàng"
+  //   );
+  // } else {
+  //   notificationRef.current.show(
+  //     false,
+
+  //     "Sản phẩm chưa được thêm vào Giỏ hàng"
+  //   );
+  // }
+
+  console.log("render productDetail");
 
   return (
     <div>
       <Breadcrumb title={"Thông tin sản phẩm"} namePage={"sản phẩm"} />
       <div>
-        {product.length && (
+        {product.data && (
           <section className="py-12 sm:py-16">
             <div className="container mx-auto px-4">
               <nav className="flex">
@@ -90,7 +147,7 @@ const ProductDetail = () => {
                           aria-current="page"
                         >
                           {" "}
-                          {product[0].cat_id}{" "}
+                          {product.data.cat_id}{" "}
                         </Link>
                       </div>
                     </div>
@@ -99,11 +156,11 @@ const ProductDetail = () => {
               </nav>
               <div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">
                 <div className="lg:col-span-3 lg:row-end-1">
-                  <Gallery urlImg={product[0].images.split("@")} />
+                  <Gallery urlImg={product.data.images.split("@")} />
                 </div>
                 <div className="lg:col-span-2 lg:row-span-2 lg:row-end-2">
                   <h1 className="sm: text-2xl font-bold text-gray-900 sm:text-3xl">
-                    {product[0].product_name}
+                    {product.data.product_name}
                   </h1>
                   <div className="mt-5 flex items-center">
                     <div className="flex items-center">
@@ -114,64 +171,22 @@ const ProductDetail = () => {
                       <AiFillStar className="block h-4 w-4 align-middle text-yellow-500" />
                     </div>
                     <p className="ml-2 text-sm font-medium text-gray-500">
-                      1,209 Reviews
+                      {product.data.views}
                     </p>
                   </div>
                   <div>
                     <span className="pt-[10px] text-primaryColor sm:text-3xl text-xl font-semibold">
                       <strong className="font-semibold">
-                        {(function format(x) {
-                          var parts = x.toString().split(".");
-                          parts[0] = parts[0].replace(
-                            /\B(?=(\d{3})+(?!\d))/g,
-                            "."
-                          );
-                          return parts.join(",");
-                        })(product[0].price)}
+                        {FormatPrice(product.data.price)}
                       </strong>{" "}
-                      VNĐ
                     </span>
                   </div>
                   <form onSubmit={handleSubmit}>
-                    <h2 className="mt-8 text-base text-gray-900 ">Size</h2>
-                    <div className="mt-3 flex select-none flex-wrap items-center gap-1">
-                      {product[0].sizes.split("@").map((item, index) => {
-                        return (
-                          <label key={item + index} className="cursor-pointer">
-                            <input
-                              type="radio"
-                              name="size"
-                              defaultValue={item}
-                              className="peer sr-only"
-                              defaultChecked=""
-                            />
-                            <p className="capitalize peer-checked:bg-secondColor peer-checked:text-while10Color rounded-lg border border-black px-6 py-2 font-bold">
-                              {item}
-                            </p>
-                          </label>
-                        );
-                      })}
-                    </div>
-                    <h2 className="mt-8 text-base text-gray-900">
-                      {"Màu Sắc"}
-                    </h2>
-                    <div className="mt-3 flex select-none flex-wrap items-center gap-1">
-                      {product[0].colors.split("@").map((item, index) => {
-                        return (
-                          <label className="cursor-pointer">
-                            <input
-                              type="radio"
-                              name="color"
-                              defaultValue={item}
-                              className="peer sr-only"
-                            />
-                            <p className="capitalize peer-checked:bg-secondColor peer-checked:text-while10Color rounded-lg border border-black px-6 py-2 font-bold">
-                              {item}
-                            </p>
-                          </label>
-                        );
-                      })}
-                    </div>
+                    <ProductOptions
+                      listColor={product.colors}
+                      listSize={product.sizes}
+                      options={product.options}
+                    />
                     <div className="mt-10">
                       {error && (
                         <p className="mt-2 text-lg text-[#dc2626]">
@@ -211,12 +226,19 @@ const ProductDetail = () => {
       </div>
       {/* <ProductRelations
         title={"Có thể bạn sẻ thích"}
-        type={product && `name/${product[0].TH_ID}/${product[0].SP_ID}`}
+        url={
+          product.data &&
+          `brand/${product.data.brand}?productId=${product.data.product_id}`
+        }
       />
       <ProductRelations
         title={"Sản phẩm liên quan"}
-        type={product && `type/${product[0].LOAI_ID}/${product[0].SP_ID}`}
+        url={
+          product.data &&
+          `category/${product.data.cat_id}?productId=${product.data.product_id}`
+        }
       /> */}
+      {/* <Notification ref={notificationRef} /> */}
     </div>
   );
 };

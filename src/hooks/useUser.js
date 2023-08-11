@@ -9,7 +9,6 @@ export const useUser = () => {
     authToken: null,
   });
   const { setItem } = useLocalStorage();
-
   const addUser = (user) => {
     setUser(user);
     setItem("user", JSON.stringify(user));
