@@ -46,7 +46,7 @@ const CartTotal = () => {
               type="submit"
               className=" w-full bg-secondColor font-semibold text-base py-3 rounded-lg duration-200 hover:bg-primaryColor text-while10Color  px-5"
             >
-              Mua Hàng
+              <Link to={"/checkout"}>Mua Hàng</Link>
             </button>
           </div>
         </div>

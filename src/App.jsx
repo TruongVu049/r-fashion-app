@@ -10,8 +10,9 @@ import {
   ProductDetail,
   ShoppingCart,
   Checkout,
-  Register,
   UserProfile,
+  Order,
+  Register,
 } from "./pages";
 import { AuthContext } from "./context/AuthContext";
 import CartProvider from "./context/CartContext";
@@ -34,6 +35,7 @@ export default function App() {
               <Route path="contact" element={<Contact />} />
               <Route path="shoppingCart" element={<ShoppingCart />} />
               <Route path="checkout" element={<Checkout />} />
+              <Route path="order" element={<Order />} />
               {!user.id ? (
                 <Route path="login" element={<Login />} />
               ) : (

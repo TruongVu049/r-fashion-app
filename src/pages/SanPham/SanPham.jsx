@@ -23,7 +23,9 @@ const SanPham = () => {
   useEffect(() => {
     let ignore = false;
     const filterParams = encodeURIComponent(JSON.stringify(filter));
-    const url = `http://localhost:5000/api/product/filter/${filterParams}?search=${searchParams.get(
+    const url = `${
+      process.env.REACT_APP_API_KEY
+    }/api/product/filter/${filterParams}?search=${searchParams.get(
       "search"
     )}&page=${searchParams.get("page") ?? 0}`;
     console.log("url", url);

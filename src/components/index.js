@@ -25,6 +25,9 @@ import PopupModal from "./PopupModal";
 import Notification from "./Notification";
 import ProductTable from "./ProductTable";
 import CartTotal from "./CartTotal";
+import Profile from "./Profile";
+import Address from "./Address";
+import ChangePassword from "./ChangePassword";
 export {
   Navbar,
   Footer,
@@ -53,4 +56,7 @@ export {
   Notification,
   ProductTable,
   CartTotal,
+  Profile,
+  Address,
+  ChangePassword,
 };

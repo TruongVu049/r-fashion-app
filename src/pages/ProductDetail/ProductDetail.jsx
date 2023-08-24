@@ -43,7 +43,7 @@ const ProductDetail = () => {
   useEffect(() => {
     let ignore = false;
     axios
-      .get(`http://localhost:5000/api/product/${productId}`)
+      .get(`${process.env.REACT_APP_API_KEY}/api/product/${productId}`)
       .then((res) => {
         if (!ignore) {
           console.log(res);

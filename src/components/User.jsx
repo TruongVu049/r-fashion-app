@@ -25,7 +25,14 @@ const User = () => {
                   after:border-l-[10px] after:border-l-[rgba(0,0,0,0)]
                   after:border-b-[15px] after:border-b-[#d1d5db]
                   after:border-r-[10px] after:border-r-[rgba(0,0,0,0)]
-                relative p-3 w-40 bg-[#d1d5db] text-[#030712] shadow-2xl z-50 "
+
+
+                  before:content-[''] before:absolute before:top-[-14px] before:right-0 before:left-0 before:h-4 before:w-ful 
+
+
+                relative p-3 w-40 bg-[#d1d5db] text-[#030712] shadow-2xl z-50 
+                
+                "
                 >
                   <Link
                     to={"/profile"}
@@ -34,7 +41,7 @@ const User = () => {
                     Tài khoản của tôi
                   </Link>
                   <Link
-                    to="#"
+                    to="/order"
                     className="duration-200 hover:text-primaryColor py-1"
                   >
                     Đơn mua

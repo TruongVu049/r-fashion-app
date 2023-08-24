@@ -20,7 +20,7 @@ const CartProvider = ({ children }) => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user")) || "";
     axios
-      .get("http://localhost:5000/api/cart", {
+      .get(`${process.env.REACT_APP_API_KEY}/api/cart`, {
         headers: {
           "access-token": user.authToken,
         },
@@ -39,7 +39,7 @@ const CartProvider = ({ children }) => {
     const user = await JSON.parse(localStorage.getItem("user"));
     axios
       .post(
-        "http://localhost:5000/api/cart",
+        `${process.env.REACT_APP_API_KEY}/api/cart`,
         {
           product_id: productId,
           options: options,
@@ -62,7 +62,7 @@ const CartProvider = ({ children }) => {
   const deleteCart = async (cartId) => {
     const user = await JSON.parse(localStorage.getItem("user"));
     axios
-      .delete(`http://localhost:5000/api/cart/${cartId}`, {
+      .delete(`${process.env.REACT_APP_API_KEY}/api/cart/${cartId}`, {
         headers: {
           "access-token": user.authToken,
         },

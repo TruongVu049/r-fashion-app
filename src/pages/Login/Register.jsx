@@ -1,11 +1,10 @@
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 import { emailRegex, passwordRegex } from "../../constants";
 
-const Login = () => {
-  const [isLogin, setIsLogin] = useState(true);
+const Register = () => {
   const [email, setEmail] = useState("");
   const [errEmail, setErrEmail] = useState(null);
   const [userName, setUserName] = useState("");
@@ -16,8 +15,6 @@ const Login = () => {
   const [errPasswordConfirm, setErrPasswordConfirm] = useState(null);
   const [status, setStatus] = useState("typing");
 
-  const Auth = useContext(AuthContext);
-
   useEffect(() => {
     setErrEmail(null);
   }, [email]);
@@ -26,22 +23,42 @@ const Login = () => {
     setErrPassword(null);
   }, [password]);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-
+    setStatus("submitting");
     //check email
     !emailRegex.test(email) && setErrEmail("Email không hợp lệ");
-    !passwordRegex.test(password) && setErrPassword("Password không hợp lệ");
-
-    console.log(email);
-    console.log(password);
-    console.log(userName);
-    console.log(passwordConfirm);
-    // const form = e.target;
-    // const formData = new FormData(form);
-    // const formJson = Object.fromEntries(formData.entries());
-    // console.log(formJson);
+    password.length < 7 &&
+      setErrPassword(
+        "Password phải chứa các kí tự từ a-z, 0-9 và có độ dài lớn hơn 8"
+      );
+    password != passwordConfirm && setErrPasswordConfirm("wrong");
+    if (errEmail || errPassword) {
+      console.log("set typing");
+      setStatus("typing");
+    } else {
+      setStatus("submitting");
+      axios
+        .post(
+          `${process.env.REACT_APP_API_KEY}/api/auth/register`,
+          {
+            email: email,
+            name: userName,
+            password: password,
+          },
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        )
+        .then((res) => {
+          if (res.status === 201) window.location.href = "/login";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
+  console.log("render register");
   return (
     <div>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -53,7 +70,7 @@ const Login = () => {
             method="POST"
           >
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              {isLogin ? "Đăng nhập" : "Đăng ký"}
+              {"Đăng ký"}
             </h2>
             <div>
               <label
@@ -149,7 +166,7 @@ const Login = () => {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-secondColor px-3 py-2 px-1 text-sm font-semibold leading-6 text-while10Color shadow-sm hover:bg-primaryColor focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                {isLogin ? "Đăng Nhập" : "Đăng Ký"}
+                {"Đăng Ký"}
               </button>
             </div>
           </form>
@@ -171,4 +188,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

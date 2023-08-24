@@ -11,7 +11,7 @@ const ProductRelations = ({ title, url }) => {
     let ignore = false;
 
     axios
-      .get(`http://localhost:5000/api/product/${url}`)
+      .get(`${process.env.REACT_APP_API_KEY}/api/product/${url}`)
       .then((res) => {
         if (!ignore) {
           setProducts(res.data);
