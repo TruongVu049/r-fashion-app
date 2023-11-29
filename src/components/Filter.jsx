@@ -1,104 +1,110 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaBars, FaXmark } from "react-icons/fa6";
-export default function Filter({ searchParams, onFilterChange }) {
+import axios from "axios";
+export default function Filter({
+  isShowFilter,
+  onchangeShowFilter,
+  onChangeSearch,
+}) {
+  const [category, setCategory] = useState([]);
   const [range, setRange] = useState({
     min: 0,
     max: 3000000,
   });
-  console.log("render filter");
   function handleSubmit(e) {
     e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
-    const formJson = Object.fromEntries(formData.entries());
-    onFilterChange(formJson);
-    searchParams.set("page", 0);
+    let filterType = "";
+    document
+      .querySelectorAll("input[name='filterType']")
+      .forEach((item, index) => {
+        if (item.checked) {
+          filterType += item.value + "__";
+        }
+      });
+    let filterGender = "";
+    document
+      .querySelectorAll("input[name='filterGender']")
+      .forEach((item, index) => {
+        if (item.checked) {
+          filterGender += item.value + "__";
+        }
+      });
+    onChangeSearch({
+      filterGender: filterGender,
+      filterType: filterType,
+      priceMin: range.min,
+      priceMax: range.max,
+      page: 1,
+    });
   }
 
-  // class ${isShow ? "fixed top-0 left-0 right-0 " : "hidden"}
-  // class  ${isShow ? "translate-x-[0]" : "translate-x-[-100%]"}
+  useEffect(() => {
+    let ignore = false;
+    const url = `${process.env.REACT_APP_API_KEY}api/category`;
+    axios
+      .get(url)
+      .then((res) => {
+        if (!ignore) {
+          setCategory(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    return () => (ignore = true);
+  }, []);
 
   return (
     <div
       className={`
-      md:rounded-lg md:bg-while10Color md:shadow-[0_0.0625rem_20px_0_rgba(0,0,0,.05)] md:p-5 md:flex-[1_1_30%] md:block md:relative
-         bottom-0 md:z-[10] z-[999]
-      
+      md:rounded-lg md:bg-white md:shadow-[0_0.0625rem_20px_0_rgba(0,0,0,.05)] md:p-5 xl:flex-[1_1_25%] md:flex-[1_1_30%] 
+      md:block md:relative  fixed inset-0
+      bottom-0 md:z-[10] z-[999]
+      ${isShowFilter ? "" : "hidden"}
       `}
     >
       <div className="md:relative md:hidden block absolute w-full h-[100vh] inset-[0] opacity-60 bg-[#212121]"></div>
       <div
         className={`
-        md:relative md:w-full ms:w-[50%] w-[80%]  bg-while10Color md:p-0 p-5 h-full
+        relative md:w-full sm:w-[50%] inset-0 w-[80%]  bg-white md:p-0 p-5 h-full
         md:translate-x-[0]
         md:shadow-none shadow-[-1px_0px_20px_-5px_#aaa] ease-linear delay-0 duration-[300ms]
        
         `}
       >
         <div className="md:hidden block pb-[40px]">
-          <FaXmark className="float-right m-2 cursor-pointer text-[20px] hover:text-primaryColor hover:duration-400" />
+          <div
+            onClick={() => {
+              onchangeShowFilter((prev) => !prev);
+            }}
+          >
+            <FaXmark className="float-right m-2 cursor-pointer text-[20px] hover:text-primaryColor hover:duration-400" />
+          </div>
         </div>
         <form method="post" onSubmit={handleSubmit}>
           <div>
             <h3 className="text-secondColor py-[10px] opacity-80 text-left text-xl font-semibold">
               Theo Danh Mục
             </h3>
-            <div className="">
-              <label
-                htmlFor="CAT_SHIRT"
-                className="flex font-semibold flex-row-reverse items-center justify-end duration-200 hover:text-primaryColor cursor-pointer xl:w-[50%] lg:w-[60%] text-[18px]"
-              >
-                Áo
-                <input
-                  className="accent-primaryColor h-5 w-5 mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                  type="checkbox"
-                  id="CAT_SHIRT"
-                  name="CAT_SHIRT"
-                />
-              </label>
-            </div>
-            <div className="">
-              <label
-                htmlFor="CAT_PANTS"
-                className="flex font-semibold flex-row-reverse items-center justify-end duration-200 hover:text-primaryColor cursor-pointer xl:w-[50%] lg:w-[60%] text-[18px]"
-              >
-                Quần
-                <input
-                  className="accent-primaryColor h-5 w-5 mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                  type="checkbox"
-                  id="CAT_PANTS"
-                  name="CAT_PANTS"
-                />
-              </label>
-            </div>
-            <div className="">
-              <label
-                htmlFor="CAT_HAT"
-                className="flex font-semibold flex-row-reverse items-center justify-end duration-200 hover:text-primaryColor cursor-pointer xl:w-[50%] lg:w-[60%] text-[18px]"
-              >
-                Nón
-                <input
-                  className="accent-primaryColor h-5 w-5 mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                  type="checkbox"
-                  id="CAT_HAT"
-                  name="CAT_HAT"
-                />
-              </label>
-            </div>
-            <div className="">
-              <label
-                htmlFor="CAT_SHOE"
-                className="flex font-semibold flex-row-reverse items-center justify-end duration-200 hover:text-primaryColor cursor-pointer xl:w-[50%] lg:w-[60%] text-[18px]"
-              >
-                Giầy
-                <input
-                  className="accent-primaryColor h-5 w-5 mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                  type="checkbox"
-                  id="CAT_SHOE"
-                  name="CAT_SHOE"
-                />
-              </label>
-            </div>
+            {category.map((item) => {
+              return (
+                <div key={item.id}>
+                  <label
+                    htmlFor={item.id}
+                    className="flex font-semibold flex-row-reverse items-center justify-end duration-200 hover:text-primaryColor cursor-pointer xl:w-[50%] lg:w-[60%] text-[18px]"
+                  >
+                    {item.name}
+                    <input
+                      className="accent-primaryColor h-5 w-5 mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      type="checkbox"
+                      id={item.id}
+                      value={item.id}
+                      name="filterType"
+                    />
+                  </label>
+                </div>
+              );
+            })}
           </div>
           <div>
             <h3 className="text-secondColor py-[10px] opacity-80 text-left text-xl font-semibold">
@@ -114,7 +120,8 @@ export default function Filter({ searchParams, onFilterChange }) {
                   className="accent-primaryColor h-5 w-5 mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                   type="checkbox"
                   id="male"
-                  name="male"
+                  value="male"
+                  name="filterGender"
                 />
               </label>
             </div>
@@ -128,7 +135,8 @@ export default function Filter({ searchParams, onFilterChange }) {
                   className="accent-primaryColor h-5 w-5 mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                   type="checkbox"
                   id="female"
-                  name="female"
+                  value="female"
+                  name="filterGender"
                 />
               </label>
             </div>
@@ -142,7 +150,8 @@ export default function Filter({ searchParams, onFilterChange }) {
                   className="accent-primaryColor h-5 w-5 mr-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                   type="checkbox"
                   id="unisex"
-                  name="unisex"
+                  name="filterGender"
+                  value="unisex"
                 />
               </label>
             </div>

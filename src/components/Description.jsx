@@ -1,7 +1,7 @@
-const Description = () => {
+const Description = ({ desc }) => {
   return (
-    <div>
-      <h2>Description</h2>
+    <div className="border border-gray-300 p-4 rounded-md">
+      <p>{desc}</p>
     </div>
   );
 };

@@ -1,10 +1,17 @@
 import React from "react";
-import { AiOutlineStar, AiFillStar } from "react-icons/ai";
+import { BiSolidStar, BiSolidStarHalf, BiStar } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { ImageComponent } from "../components";
 import FormatPrice from "../Helpers/FormatPrice";
 
-const CartProduct = ({ product_id, product_name, brand, price, Img }) => {
+const CartProduct = ({
+  product_id,
+  product_name,
+  brand,
+  price,
+  Img,
+  avgStar,
+}) => {
   return (
     <div
       className="rounded-lg cursor-pointer duration-200 transition-shadow ease-in-out
@@ -12,7 +19,7 @@ const CartProduct = ({ product_id, product_name, brand, price, Img }) => {
               bg-while10Color overflow-hidden relative"
     >
       <div className="">
-        <ImageComponent src={Img} />
+        <ImageComponent src={Img} height={"h-40"} cusClass={""} />
       </div>
       <div className="p-[10px_10px_20px_10px] text-center">
         <h4 className="text-secondColor leading-4 opacity-80 font-semibold text-[13px]">
@@ -22,11 +29,30 @@ const CartProduct = ({ product_id, product_name, brand, price, Img }) => {
           {product_name}
         </h5>
         <div className="flex justify-center pt-[10px]">
-          <AiFillStar />
-          <AiFillStar />
-          <AiFillStar />
-          <AiFillStar />
-          <AiOutlineStar />
+          {[...Array(5)].map((item, index) => {
+            if (avgStar >= index + 1) {
+              return (
+                <BiSolidStar
+                  key={index}
+                  className="block h-4 w-4 align-middle text-yellow-500"
+                />
+              );
+              // index = 3, avgstar = 2.4
+              // > 0 <= 0.5
+              // > 0.5
+            } else if (
+              avgStar < index + 1 &&
+              Math.ceil(avgStar) === index + 1
+            ) {
+              return (
+                <BiSolidStarHalf className="block h-4 w-4 align-middle text-yellow-500" />
+              );
+            } else {
+              return (
+                <BiStar className="block h-4 w-4 align-middle text-yellow-500" />
+              );
+            }
+          })}
         </div>
         <span className="pt-[10px] text-primaryColor text-[18px] font-semibold">
           <strong className="font-semibold">{FormatPrice(price)}</strong>

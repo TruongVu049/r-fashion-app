@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import Logo from "../assets/images/logo.png";
+import { BsCart2 } from "react-icons/bs";
 import { links } from "../constants";
 import { FaBars, FaXmark } from "react-icons/fa6";
 
 import SearchBar from "./SearchBar";
-import Cart from "./Cart";
 import User from "./User";
+import Cart from "./Cart";
 
 const Navbar = () => {
   const [isShow, setIsShow] = useState(false);
@@ -66,6 +67,9 @@ const Navbar = () => {
 
               <User />
               <Cart />
+              {/* <Link to={"/shoppingCart"}>
+                <BsCart2 className="text-[20px]"></BsCart2>
+              </Link> */}
               <div
                 onClick={handleShow}
                 className="hover:text-primaryColor duration-300 py-6 px-3  mx-1 md:hidden"

@@ -39,7 +39,7 @@ const Counter = ({ limit }) => {
       </button>
       <input
         type="text"
-        name="amount"
+        name="quantity"
         value={counter}
         onChange={(e) => {}}
         className=" border-x border-secondColor text-center cursor-pointer font-bold outline-none"

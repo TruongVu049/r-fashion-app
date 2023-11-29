@@ -8,10 +8,10 @@ const CartSkeleton = () => {
               bg-while10Color overflow-hidden relative"
     >
       <div className="grid">
-        <Skeleton className="grid-flow-col h-[150px]" />
+        <Skeleton className="grid-flow-col h-[180px]" />
       </div>
       <div className="grid grid-cols-1">
-        <Skeleton count={4} />
+        <Skeleton count={3} />
       </div>
     </div>
   );

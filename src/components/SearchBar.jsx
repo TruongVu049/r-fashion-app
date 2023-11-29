@@ -16,7 +16,7 @@ const SearchBar = () => {
 
   function postSearch() {
     setIsShow(!isShow);
-    return navigate(`/sanpham?search=${search}`);
+    return navigate(`/product?search=${search}`);
   }
 
   const handleKeyDown = (event) => {

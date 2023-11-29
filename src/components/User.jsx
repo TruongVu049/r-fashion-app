@@ -1,21 +1,22 @@
 import { FaRegUser } from "react-icons/fa";
 import { useContext } from "react";
-import { useAuth } from "../hooks/useAuth";
+import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 const User = () => {
-  const { user, logout } = useAuth();
+  const { user, logout } = useContext(AuthContext);
+  console.log("User info", user);
   return (
-    <Link to={`${user.id ? "/profile" : "/login"}`}>
+    <Link to={`${user?.toKen ? "/profile" : "/login"}`}>
       <div className="p-[10px] hover:text-primaryColor duration-300 relative">
-        {!user.id ? (
+        {!user.toKen ? (
           <FaRegUser className="text-[20px]" />
         ) : (
           <>
             <div className="group duration-200 flex relative">
               <h6 className="pr-1">
-                {user.userName.length > 10
-                  ? `${user["userName"].slice(0, 10)}...`
-                  : user.userName}
+                {user.fullName.length > 10
+                  ? `${user["fullName"].slice(0, 10)}...`
+                  : user.fullName}
               </h6>
               <FaRegUser className="text-[20px] " />
               <div className="absolute bottom-[-130px] right-0">

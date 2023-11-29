@@ -4,112 +4,121 @@ import { useEffect } from "react";
 import { BsTrash } from "react-icons/bs";
 import FormatPrice from "../Helpers/FormatPrice";
 
-const ProductTable = () => {
-  const { cart, deleteCart, updateCart } = useCartContext();
+const ProductTable = ({
+  cart,
+  onchangeAddSelectedProduct,
+  onchangeRemoveSelectedProduct,
+  onchangeRemoveCart,
+}) => {
+  function handleSubmit(e) {
+    e.preventDefault();
+    const cart_item = [];
+    document
+      .querySelectorAll("input[name='checkbox']")
+      .forEach((item, index) => {
+        if (item.checked) {
+          cart_item.push(cart.find((i) => i.id == item.value));
+        }
+      });
+    console.log(cart_item);
+  }
 
-  console.log("render product table", cart);
   return (
-    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-gray-700 uppercase bg-[#d1d5db] dark:bg-gray-700 dark:text-gray-400">
-        <tr>
-          <th scope="col" className="p-1">
-            <div className="flex items-center invisible"></div>
-          </th>
-          <th scope="col" className="px-6 py-3 text-center">
-            Ảnh
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Tên Sản Phẩm
-          </th>
-          <th scope="col" className="px-3 py-3">
-            Phân loại
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Giá
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Số Lượng
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Tổng
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Xóa
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {cart &&
-          cart.map((item) => {
-            return (
-              <tr
-                key={item.cart_id}
-                className="cursor-pointer bg-white border-b border-[#d1d5db] dark:bg-gray-800 dark:border-gray-700 hover:bg-[#f3f4f6] dark:hover:bg-gray-600"
-              >
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={item.packed || false}
-                      onChange={(e) => {
-                        updateCart({
-                          ...item,
-                          packed: e.target.checked,
-                        });
-                      }}
-                      name={`${item.cart_id}`}
-                      className="accent-primaryColor w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label htmlFor={`${item.cart_id}`} className="sr-only">
-                      checkbox
-                    </label>
-                  </div>
-                </td>
-                <td className="px-6 py-1">
-                  <img
-                    className="w-40"
-                    src={`${item.images.split("@")[0]}`}
-                    alt="image"
-                  />
-                </td>
-                <th
-                  scope="row"
-                  className=" 
-          px-6 py-4 font-medium text-gray-900 dark:text-white"
-                >
-                  <h4 className="line-clamp-2 ">{item.product_name}</h4>
+    <>
+      <div className="relative p-4 bg-white overflow-x-auto shadow-sm rounded-md">
+        <form>
+          <table className="w-full text-sm text-left text-gray-500 ">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-100  ">
+              <tr>
+                <th scope="col" className="p-1">
+                  <div className="flex items-center invisible"></div>
                 </th>
-                <td className="px-3 py-4">
-                  <h6 className="text-xs opacity-70 whitespace-nowrap capitalize">
-                    {item.color}, {item.size}
-                  </h6>
-                </td>
-                <td className="px-6 py-4 text-primaryColor">
-                  <span className="whitespace-nowrap">
-                    {FormatPrice(item.price)}
-                  </span>
-                </td>
-                <td className="px-6 py-4">{item.quantity}</td>
-                <td className="px-6 py-4 text-center text-primaryColor">
-                  <span className="whitespace-nowrap">
-                    {FormatPrice(item.price * item.quantity)}
-                  </span>
-                </td>
-                <td className="px-6 py-4">
-                  <button
-                    onClick={() => {
-                      deleteCart(item.cart_id);
-                    }}
-                    className="font-medium text-red-600 dark:text-red-500 hover:text-primaryColor"
-                  >
-                    <BsTrash className="text-xl" />
-                  </button>
-                </td>
+                <th
+                  scope="col"
+                  className="px-6 py-3 whitespace-nowrap font-semibold "
+                >
+                  Sản Phẩm
+                </th>
+                <th scope="col" className="px-6 py-3 whitespace-nowrap"></th>
+                <th scope="col" className="px-6 py-3 whitespace-nowrap"></th>
+                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                  Đơn Giá
+                </th>
+                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                  Số Lượng
+                </th>
+                <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                  Thành Tiền
+                </th>
+                <th scope="col" className="px-6 py-3 whitespace-nowrap"></th>
               </tr>
-            );
-          })}
-      </tbody>
-    </table>
+            </thead>
+            <tbody>
+              {cart &&
+                cart.map((item) => {
+                  return (
+                    <tr key={item.id} className="bg-white border-b ">
+                      <td className="w-4 p-4">
+                        <div className="flex items-center">
+                          <input
+                            type="checkbox"
+                            name={"checkbox"}
+                            value={item.id}
+                            onChange={(e) => {
+                              e.target.checked
+                                ? onchangeAddSelectedProduct(item)
+                                : onchangeRemoveSelectedProduct(item.id);
+                            }}
+                            className="accent-rose-500 w-6 h-6  bg-gray-100 border-gray-300 rounded  focus:ring-2 "
+                          />
+                          <label htmlFor={`${item.id}`} className="sr-only">
+                            checkbox
+                          </label>
+                        </div>
+                      </td>
+                      <th
+                        scope="row"
+                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                      >
+                        <img className="h-12 w-12" src={item.image} />
+                      </th>
+                      <td className="px-6 py-4 ">
+                        <h4 className="line-clamp-1 md:text-base text-sm">
+                          {item.name}
+                        </h4>
+                      </td>
+                      <td className="px-6 py-4 capitalize">
+                        <h6 className="line-clamp-2 md:text-sm text-xs">
+                          {"Loại: " + item.color + ", " + item.size}
+                        </h6>
+                      </td>
+                      <td className="px-6 py-4 font-semibold whitespace-nowrap">
+                        {FormatPrice(item.price)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {item.quantity}
+                      </td>
+                      <td className="px-6 py-4 font-semibold text-rose-500 whitespace-nowrap">
+                        {FormatPrice(item.price * parseInt(item.quantity))}
+                      </td>
+                      <td className="group  px-6 py-4 sm:text-lg text-base cursor-pointer">
+                        <div
+                          onClick={() => {
+                            onchangeRemoveSelectedProduct(item.id);
+                            onchangeRemoveCart(item.id);
+                          }}
+                        >
+                          <BsTrash className="group-hover:text-rose-500" />
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </>
   );
 };
 

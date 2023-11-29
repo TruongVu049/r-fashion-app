@@ -1,104 +1,90 @@
 import React from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
-const Pagination = ({ searchParam, pageParam, totalProduct }) => {
+const Pagination = ({ currentPage, params, data }) => {
   console.log("render pagination");
-  pageParam = parseInt(pageParam);
-  let dividePage = Math.ceil(parseInt(totalProduct) / 6);
-  let pages = Array(dividePage).fill(0, 0);
-  //auto scroll top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [searchParam, pageParam]);
   return (
-    <div>
-      <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-        <div className="flex flex-1 justify-between sm:hidden">
+    <nav className="ml-auto">
+      <ul className="flex items-center -space-x-px h-10 text-base">
+        <li>
           <Link
-            to={`/sanpham?search=${searchParam}&page=${pageParam - 1}`}
-            className={` ${
-              pageParam == 0
-                ? "pointer-events-none cursor-default opacity-20"
-                : ""
+            to={`/product
+           ?page=${parseInt(currentPage) - 1}${params()}`.replace(/ /g, "")}
+            className={
+              parseInt(currentPage) - 1 < 1
+                ? "pointer-events-none opacity-40  hover:text-white hover:bg-rose-500 flex items-center justify-center px-4 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg "
+                : "hover:text-white hover:bg-rose-500 flex items-center justify-center px-4 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg "
             }
-            relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-primaryColor hover:text-while10Color`}
           >
-            Previous
-          </Link>
-          <Link
-            to={`/sanpham?search=${searchParam}&page=${pageParam + 1}`}
-            className={`${
-              pageParam == pages.length - 1
-                ? "pointer-events-none cursor-default opacity-20"
-                : ""
-            }
-            relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-primaryColor hover:text-while10Color`}
-          >
-            Next
-          </Link>
-        </div>
-        <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-          <div>
-            <p className="text-sm text-gray-700">
-              Showing <span className="font-medium">{pageParam + 1}</span> to{" "}
-              <span className="font-medium">{pages.length}</span> of{" "}
-              <span className="font-medium">{totalProduct}</span> results
-            </p>
-          </div>
-          <div>
-            <nav
-              className="isolate inline-flex -space-x-px rounded-md shadow-sm"
-              aria-label="Pagination"
+            <span className="sr-only">Previous</span>
+            <svg
+              className="w-3 h-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
             >
-              <Link
-                to={`/sanpham?search=${searchParam}&page=${pageParam - 1}`}
-                className={`${
-                  pageParam == 0
-                    ? "pointer-events-none cursor-default opacity-20"
-                    : ""
-                }
-                relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-[#878b8e] hover:bg-primaryColor hover:text-while10Color focus:z-20 focus:outline-offset-0`}
-              >
-                <span className="sr-only">Previous</span>
-                <AiOutlineDoubleLeft className="h-5 w-5" aria-hidden="true" />
-              </Link>
-              {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-[#878b8e] hover:bg-primaryColor hover:text-while10Color focus:outline-offset-0" */}
-              {pages.map((page, index) => {
-                return (
-                  <Link
-                    key={page + index}
-                    className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-[#878b8e] hover:bg-primaryColor hover:text-while10Color focus:z-20 focus:outline-offset-0
-                        ${
-                          index == pageParam
-                            ? "bg-primaryColor text-while10Color"
-                            : ""
-                        }
-                        `}
-                    to={`/sanpham?search=${searchParam}&page=${index}`}
-                  >
-                    {index + 1}
-                  </Link>
-                );
-              })}
-              <Link
-                to={`/sanpham?search=${searchParam}&page=${pageParam + 1}`}
-                className={`
-                ${
-                  pageParam == pages.length - 1
-                    ? "pointer-events-none cursor-default opacity-20"
-                    : ""
-                }
-                relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-[#878b8e] hover:bg-primaryColor hover:text-while10Color focus:z-20 focus:outline-offset-0`}
-              >
-                <span className="sr-only">Next</span>
-                <AiOutlineDoubleRight className="h-5 w-5" aria-hidden="true" />
-              </Link>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 1 1 5l4 4"
+              />
+            </svg>
+          </Link>
+        </li>
+
+        {Array(data.totalPage)
+          .fill(0, 0)
+          .map((item, index) => {
+            return (
+              <li key={item + index}>
+                <Link
+                  to={`/product
+                  ?page=${index + 1}${params()}`.replace(/ /g, "")}
+                  className={
+                    index + 1 === parseInt(currentPage)
+                      ? "text-white bg-rose-500 flex items-center justify-center px-4 h-10 leading-tight border border-gray-300 "
+                      : "hover:text-white hover:bg-rose-500 flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300  "
+                  }
+                >
+                  {index + 1}
+                </Link>
+              </li>
+            );
+          })}
+
+        <li>
+          <Link
+            to={`/product
+            ?page=${parseInt(currentPage) + 1}${params()}`.replace(/ /g, "")}
+            className={
+              parseInt(currentPage) + 1 > data.totalPage
+                ? " pointer-events-none opacity-40 hover:text-white hover:bg-rose-500 flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg  "
+                : "hover:text-white hover:bg-rose-500 flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg  "
+            }
+          >
+            <span className="sr-only">Next</span>
+            <svg
+              className="w-3 h-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
 };
 

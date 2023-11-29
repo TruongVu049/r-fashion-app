@@ -20,14 +20,19 @@ import CartSkeleton from "./CartSkeleton";
 import Counter from "./Counter";
 import ImageComponent from "./ImageComponent";
 import ProductOptions from "./ProductOptions";
-import OptionName from "./OptionName";
 import PopupModal from "./PopupModal";
 import Notification from "./Notification";
 import ProductTable from "./ProductTable";
 import CartTotal from "./CartTotal";
-import Profile from "./Profile";
 import Address from "./Address";
 import ChangePassword from "./ChangePassword";
+import RequireAuth from "./RequireAuth";
+import Anonymous from "./Anonymous ";
+import Wrapper from "./Wrapper";
+import CardSkeleton from "./CardSkeleton";
+import Message from "./Message";
+import OrderItems from "./OrderItems";
+import ProductReviews from "./ProductReviews";
 export {
   Navbar,
   Footer,
@@ -51,12 +56,17 @@ export {
   Counter,
   ImageComponent,
   ProductOptions,
-  OptionName,
   PopupModal,
   Notification,
   ProductTable,
   CartTotal,
-  Profile,
   Address,
   ChangePassword,
+  RequireAuth,
+  Anonymous,
+  Wrapper,
+  CardSkeleton,
+  Message,
+  OrderItems,
+  ProductReviews,
 };

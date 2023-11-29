@@ -5,8 +5,9 @@ export const useUser = () => {
   const [user, setUser] = useState({
     id: null,
     email: null,
-    userName: null,
-    authToken: null,
+    fullName: null,
+    role: null,
+    toKen: null,
   });
   const { setItem } = useLocalStorage();
   const addUser = (user) => {
@@ -17,8 +18,9 @@ export const useUser = () => {
     setUser({
       id: null,
       email: null,
-      userName: null,
-      authToken: null,
+      fullName: null,
+      role: null,
+      toKen: null,
     });
     setItem("user", "");
   };

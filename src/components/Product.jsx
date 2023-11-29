@@ -1,5 +1,5 @@
 import React from "react";
-import CartSkeleton from "./CartSkeleton";
+import CardSkeleton from "./CardSkeleton";
 import none_product from "../assets/images/non-product.png";
 
 import CartProduct from "./CartProduct";
@@ -17,31 +17,35 @@ const Product = ({ productList, status }) => {
           </h3>
         </div>
       )}
-      {status === "loading" && (
-        <div className="grid md:grid-cols-3 grid-cols-2 gap-4 relative">
-          <CartSkeleton />
-          <CartSkeleton />
-          <CartSkeleton />
-          <CartSkeleton />
-          <CartSkeleton />
-          <CartSkeleton />
+      {status === "loading" ? (
+        <div className="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 relative">
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
         </div>
-      )}
-      {productList.length != 0 && (
-        <div className="grid md:grid-cols-3 grid-cols-2 gap-4 relative">
-          {productList.map((item, index) => {
-            return (
-              <CartProduct
-                key={item.product_id}
-                product_id={item.product_id}
-                product_name={item.product_name}
-                brand={item.brand}
-                price={item.price}
-                Img={item["images"].split("@")[0]}
-              />
-            );
-          })}
-        </div>
+      ) : (
+        productList.length != 0 && (
+          <div className="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 relative">
+            {productList.map((item, index) => {
+              return (
+                <CartProduct
+                  key={item.id}
+                  product_id={item.id}
+                  product_name={item.name}
+                  brand={item.brand}
+                  price={item.price}
+                  Img={item.image}
+                  avgStar={item.avgStar}
+                />
+              );
+            })}
+          </div>
+        )
       )}
     </div>
   );

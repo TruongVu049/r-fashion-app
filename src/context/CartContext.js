@@ -1,91 +1,60 @@
-import {
-  useState,
-  useContext,
-  useReducer,
-  createContext,
-  useEffect,
-} from "react";
-import cartReducer from "../reducer/cartReducer";
+import { useState, useContext, createContext, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
 import axios from "axios";
-import { json } from "react-router-dom";
-
 const CartContext = createContext(null);
 
-const initialCart = [];
-
 const CartProvider = ({ children }) => {
-  const [cart, dispatch] = useReducer(cartReducer, initialCart);
+  const { user } = useContext(AuthContext);
+  const [cart, setCart] = useState([]);
+
+  console.log("render cart", cart);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user")) || "";
-    axios
-      .get(`${process.env.REACT_APP_API_KEY}/api/cart`, {
-        headers: {
-          "access-token": user.authToken,
-        },
-      })
-      .then((res) => {
-        const carts = res.data;
-        dispatch({ type: "SET_API_DATA", payload: carts });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  const addCart = async (productId, options) => {
-    console.log(productId, options);
-    const user = await JSON.parse(localStorage.getItem("user"));
-    axios
-      .post(
-        `${process.env.REACT_APP_API_KEY}/api/cart`,
-        {
-          product_id: productId,
-          options: options,
-        },
-        {
+    let ignore = false;
+    if (user.id) {
+      axios
+        .get(`${process.env.REACT_APP_API_KEY}api/cart/${user.id}/${5}`, {
           headers: {
-            "access-token": user.authToken,
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + user.toKen,
           },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        dispatch({ type: "ADD_CART", cart: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setCart(res.data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    return () => (ignore = true);
+  }, [user.id]);
+  console.log("cart", cart);
 
-  const deleteCart = async (cartId) => {
-    const user = await JSON.parse(localStorage.getItem("user"));
+  const refreshCart = () => {
     axios
-      .delete(`${process.env.REACT_APP_API_KEY}/api/cart/${cartId}`, {
+      .get(`${process.env.REACT_APP_API_KEY}api/cart/${user.id}/${5}`, {
         headers: {
-          "access-token": user.authToken,
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + user.toKen,
         },
       })
       .then((res) => {
-        dispatch({ type: "DELETE_CART", cart_id: cartId });
+        if (res.status === 200) {
+          setCart(res.data);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  const updateCart = (cart) => {
-    dispatch({ type: "UPDATE_CART", cart: cart });
   };
 
   return (
     <CartContext.Provider
       value={{
         cart,
-        addCart,
-        deleteCart,
-        updateCart,
+        refreshCart,
       }}
     >
       {children}

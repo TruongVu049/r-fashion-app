@@ -6,32 +6,37 @@ export const useAuth = () => {
   const { user, addUser, removeUser } = useUser();
   const { getItem } = useLocalStorage();
 
+  // useEffect(() => {
+  //   const loggedInUser = getItem("user");
+  //   if (loggedInUser) {
+  //     const foundUser = JSON.parse(loggedInUser);
+  //     addUser(foundUser);
+  //   }
+  // }, []);
   useEffect(() => {
-    const user = getItem("user");
-    if (user) {
-      addUser(JSON.parse(user));
+    const loggedInUser = getItem("user");
+    let ignore = false;
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      axios
+        .get(`http://localhost:60462/api/account/authen`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + foundUser.toKen,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            console.log("status loggin ", res);
+            addUser(foundUser);
+          }
+        })
+        .catch((err) => {
+          removeUser();
+        });
     }
-
-    // const user = localStorage.getItem('user');
-
-    // axios
-    //   .get("http://localhost:5000/api/auth/checkAuth", {
-    //     headers: {
-    //       "access-token": user.authToken,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     addUser(JSON.parse(user));
-    //   })
-    //   .catch((err) => {
-    //     removeUser();
-    //     console.log(err);
-    //   });
+    return () => (ignore = true);
   }, []);
-
-  const isLogin = () => {
-    return getItem("user") ? true : false;
-  };
 
   const login = (user) => {
     addUser(user);
@@ -41,5 +46,5 @@ export const useAuth = () => {
     removeUser();
   };
 
-  return { user, login, logout, isLogin };
+  return { user, login, logout };
 };

@@ -7,18 +7,9 @@ export const links = [
   {
     id: 1,
     name: "Sản Phẩm",
-    path: "/sanpham",
+    path: "/product",
   },
-  {
-    id: 2,
-    name: "Nam",
-    path: "/nam?SP_ID=SP001",
-  },
-  {
-    id: 3,
-    name: "Nữ",
-    path: "/nu?SP_ID=SP002",
-  },
+
   {
     id: 4,
     name: "Blog",
@@ -31,20 +22,6 @@ export const links = [
   },
 ];
 
-export const bannerImg = [
-  {
-    id: "bn_00",
-    url: "https://truongvu049.github.io/n2-fashion/assets/image/banner/banner_bg-4.webp",
-  },
-  {
-    id: "bn_01",
-    url: "https://truongvu049.github.io/n2-fashion/assets/image/banner/banner_bg-5.webp",
-  },
-  {
-    id: "bn_02",
-    url: "https://truongvu049.github.io/n2-fashion/assets/image/banner/banner_bg-6.webp",
-  },
-];
 export const policy = [
   {
     id: "01",

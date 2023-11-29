@@ -1,127 +1,55 @@
 import { Breadcrumb, Pagination } from "../../components";
 import { Link } from "react-router-dom";
-const posts = [
-  {
-    id: 1,
-    title: "Boost your conversion rate",
-    href: "#",
-    description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
-    date: "Mar 16, 2020",
-    datetime: "2020-03-16",
-    category: { title: "Marketing", href: "#" },
-    author: {
-      name: "Michael Foster",
-      role: "Co-Founder / CTO",
-      href: "#",
-      imageUrl:
-        "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-  },
-  {
-    id: 1,
-    title: "Boost your conversion rate",
-    href: "#",
-    description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
-    date: "Mar 16, 2020",
-    datetime: "2020-03-16",
-    category: { title: "Marketing", href: "#" },
-    author: {
-      name: "Michael Foster",
-      role: "Co-Founder / CTO",
-      href: "#",
-      imageUrl:
-        "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-  },
-  {
-    id: 1,
-    title: "Boost your conversion rate",
-    href: "#",
-    description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
-    date: "Mar 16, 2020",
-    datetime: "2020-03-16",
-    category: { title: "Marketing", href: "#" },
-    author: {
-      name: "Michael Foster",
-      role: "Co-Founder / CTO",
-      href: "#",
-      imageUrl:
-        "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-  },
-  {
-    id: 1,
-    title: "Boost your conversion rate",
-    href: "#",
-    description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
-    date: "Mar 16, 2020",
-    datetime: "2020-03-16",
-    category: { title: "Marketing", href: "#" },
-    author: {
-      name: "Michael Foster",
-      role: "Co-Founder / CTO",
-      href: "#",
-      imageUrl:
-        "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-  },
-  {
-    id: 1,
-    title: "Boost your conversion rate",
-    href: "#",
-    description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
-    date: "Mar 16, 2020",
-    datetime: "2020-03-16",
-    category: { title: "Marketing", href: "#" },
-    author: {
-      name: "Michael Foster",
-      role: "Co-Founder / CTO",
-      href: "#",
-      imageUrl:
-        "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-  },
-  {
-    id: 1,
-    title: "Boost your conversion rate",
-    href: "#",
-    description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
-    date: "Mar 16, 2020",
-    datetime: "2020-03-16",
-    category: { title: "Marketing", href: "#" },
-    author: {
-      name: "Michael Foster",
-      role: "Co-Founder / CTO",
-      href: "#",
-      imageUrl:
-        "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-  },
-  {
-    id: 1,
-    title: "Boost your conversion rate",
-    href: "#",
-    description:
-      "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.",
-    date: "Mar 16, 2020",
-    datetime: "2020-03-16",
-    category: { title: "Marketing", href: "#" },
-    author: {
-      name: "Michael Foster",
-      role: "Co-Founder / CTO",
-      href: "#",
-      imageUrl:
-        "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-  },
-];
+import { FaRegUserCircle } from "react-icons/fa";
+
 const Blog = () => {
+  const posts = [
+    {
+      id: 1,
+      title: "Top 4 gam màu trang phục được ưa chuộng nhất trong mùa hè",
+      href: "#",
+      description:
+        "Mùa hè đến mang theo những làn gió mới, cập nhật những xu hướng mới trong các bộ sưu tập về thời trang dành cho chị...",
+      date: "16/3/2020",
+      datetime: "2020-03-16",
+      category: { title: "Marketing", href: "#" },
+      author: {
+        name: "Nguyen Vu",
+        role: "Admin",
+        href: "#",
+      },
+    },
+    {
+      id: 2,
+      title: "TOP 3 SET ĐỒ MÀ CÁC CÔ NÀNG CÔNG SỞ KHÔNG THỂ BỎ LỠ",
+      href: "#",
+      description:
+        "Làm việc trong môi trường công sở, các cô nàng luôn muốn thể hiện sự chuyên nghiệp, thanh lịch và tinh tế của mình thông qua...",
+      date: "20/3/2020",
+      datetime: "2020-03-16",
+      category: { title: "Marketing", href: "#" },
+      author: {
+        name: "Nguyen Vu",
+        role: "Admin",
+        href: "#",
+      },
+    },
+    {
+      id: 3,
+      title: "Phối đồ với áo sơ mi nữ theo xu hướng thịnh hành nhất",
+      href: "#",
+      description:
+        "Áo sơ mi là một trong những item thời trang không thể thiếu trong tủ đồ của các chị em. Tùy vào phong cách, cá tính...",
+      date: "23/3/2020",
+      datetime: "2020-03-16",
+      category: { title: "Marketing", href: "#" },
+      author: {
+        name: "Nguyen Vu",
+        role: "Admin",
+        href: "#",
+      },
+    },
+  ];
   return (
     <div>
       <Breadcrumb title={"blog"} namePage={"blog"} />
@@ -163,11 +91,9 @@ const Blog = () => {
                   </p>
                 </div>
                 <div className="relative mt-8 flex items-center gap-x-4">
-                  <img
-                    src={post.author.imageUrl}
-                    alt=""
-                    className="h-10 w-10 rounded-full bg-gray-50"
-                  />
+                  <div>
+                    <FaRegUserCircle className="h-10 w-10 text-gray-500" />
+                  </div>
                   <div className="text-sm leading-6">
                     <p className="font-semibold text-gray-900">
                       <a href={post.author.href}>
@@ -184,7 +110,7 @@ const Blog = () => {
         </div>
       </div>
       <div className="mx-auto max-w-7xl px-6 lg:px-8 mb-12">
-        <Pagination />
+        <Pagination currentPage={1} params={() => {}} data={{ totalPage: 1 }} />
       </div>
     </div>
   );

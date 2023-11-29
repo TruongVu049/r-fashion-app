@@ -1,32 +1,56 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Breadcrumb = ({ title, namePage }) => {
   return (
-    <section>
-      <div className="bg-[#e8e8e8] sm:py-[54px] py-10 text-center text-secondColor mt-[89px]">
-        <h2 className="sm:text-3xl text-2xl  leading-7 font-semibold uppercase">
-          {title}
-        </h2>
-        <ul className="flex justify-center">
-          <li
-            className="relative  
-          after:absolute after:content-[''] after:h-[20px] after:w-[2px] after:top-[10px] after:right-0 after:bg-while05Color after:rotate-12"
-          >
-            <NavLink
-              className="text-[15px] leading-5 to-while05Color font-semibold p-[10px] hover:text-primaryColor duration-200"
-              to="/"
-            >
-              Trang Chủ
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="capitalize text-[15px] leading-5 to-while05Color font-semibold p-[10px] hover:text-primaryColor duration-200">
-              {namePage}
-            </NavLink>
-          </li>
-        </ul>
+    <div className="bg-gray-100">
+      <div className="xl:container mx-auto lg:container sm:container">
+        <div className=" p-5 pb-0 text-center mt-[89px]">
+          <nav className="flex">
+            <ol className="inline-flex items-center space-x-1 md:space-x-3">
+              <li className="inline-flex items-center">
+                <Link
+                  to="/"
+                  className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-rose-500 "
+                >
+                  <svg
+                    className="w-3 h-3 mr-2.5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                  </svg>
+                  Trang chủ
+                </Link>
+              </li>
+              <li>
+                <div className="flex items-center">
+                  <svg
+                    className="w-3 h-3 text-gray-400 mx-1"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 6 10"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="m1 9 4-4-4-4"
+                    />
+                  </svg>
+                  <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 ">
+                    Sản phẩm
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </nav>
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 

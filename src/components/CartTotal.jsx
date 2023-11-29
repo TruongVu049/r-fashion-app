@@ -1,13 +1,21 @@
-import { Link } from "react-router-dom";
-import { useCartContext } from "../context/CartContext";
 import FormatPrice from "../Helpers/FormatPrice";
-const CartTotal = () => {
-  const { cart } = useCartContext();
+import { useNavigate } from "react-router-dom";
+const CartTotal = ({ selectedProduct }) => {
+  const navigate = new useNavigate();
 
-  const totalPrice = cart
-    .filter((t) => t.packed)
-    .reduce((prev, cur) => prev + cur.price * cur.quantity, 0);
-  console.log("total price", totalPrice);
+  const totalPrice = selectedProduct.reduce(
+    (prev, cur) => prev + cur.price * cur.quantity,
+    0
+  );
+
+  function handleButton() {
+    if (selectedProduct != null && selectedProduct.length != 0) {
+      navigate("/checkout", {
+        state: selectedProduct,
+      });
+    }
+  }
+
   return (
     <div>
       <div className="sm:float-right md:w-[50%] sm:w-[60%] w-full overflow-hidden shadow-xl sm:rounded-lg text-xs text-gray-700 uppercase">
@@ -15,23 +23,21 @@ const CartTotal = () => {
           <h2 className="p-6 text-xl font-semibold">Tổng sản phẩm</h2>
         </div>
         <ul>
-          {cart &&
-            cart.map((item) => {
-              if (item.packed) {
-                return (
-                  <li
-                    key={item.cart_id}
-                    className="flex gap-5 p-5 items-center  border-b border-[#d1d5db]"
-                  >
-                    <div className=" w-[70%]">
-                      <h6 className="line-clamp-2">{item.product_name}</h6>
-                    </div>
-                    <strong className="w-[30%] text-lg text-right">
-                      {FormatPrice(item.price * item.quantity)}
-                    </strong>
-                  </li>
-                );
-              }
+          {selectedProduct &&
+            selectedProduct.map((item) => {
+              return (
+                <li
+                  key={item.id}
+                  className="flex gap-5 p-5 items-center  border-b border-[#d1d5db]"
+                >
+                  <div className=" w-[70%]">
+                    <h6 className="line-clamp-2">{item.name}</h6>
+                  </div>
+                  <strong className="w-[30%] text-lg text-right">
+                    {FormatPrice(item.price * item.quantity)}
+                  </strong>
+                </li>
+              );
             })}
         </ul>
         <div className="">
@@ -43,10 +49,11 @@ const CartTotal = () => {
           </div>
           <div className="px-5 pb-5 ">
             <button
-              type="submit"
+              type="button"
+              onClick={handleButton}
               className=" w-full bg-secondColor font-semibold text-base py-3 rounded-lg duration-200 hover:bg-primaryColor text-while10Color  px-5"
             >
-              <Link to={"/checkout"}>Mua Hàng</Link>
+              Mua Hàng
             </button>
           </div>
         </div>

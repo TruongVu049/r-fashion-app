@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Description from "./Description";
 import Reviews from "./Reviews";
-const Accordion = () => {
+const Accordion = ({ productId, desc }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -23,14 +23,17 @@ const Accordion = () => {
               } duration-200 hover:text-primaryColor`}
               onClick={() => setActiveIndex(1)}
             >
-              Reviews
-              <span className="pl-2 text-sm">21321</span>
+              Đánh giá
             </button>
           </div>
         </div>
       </div>
-      <div className="mt-8 flow-root sm:mt-12">
-        {activeIndex == 0 ? <Description /> : <Reviews />}
+      <div className="mt-6 flow-root sm:mt-12">
+        {activeIndex == 0 ? (
+          <Description desc={desc} />
+        ) : (
+          <Reviews productId={productId} />
+        )}
       </div>
     </div>
   );
