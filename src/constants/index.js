@@ -48,6 +48,3 @@ export const policy = [
     url: "https://truongvu049.github.io/n2-fashion/assets/image/blog/bg-footer-4.png",
   },
 ];
-
-export const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-export const passwordRegex = /^\[A-z\][A-z0-9-_]{3,23}$/;

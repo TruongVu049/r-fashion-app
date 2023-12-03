@@ -1,12 +1,11 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FormatPrice from "../Helpers/FormatPrice";
 import ProductReviews from "./ProductReviews";
 import noneOrder from "../assets/images/kh_co_don_hang.png";
 import { Link } from "react-router-dom";
 const OrderItems = ({ items, status, onchaneOrderItemsRating }) => {
   console.log("item", items);
-  const [openModal, setOpenModal] = useState(false);
   const [reviews, setReviews] = useState({
     id: null,
     order_details_id: null,

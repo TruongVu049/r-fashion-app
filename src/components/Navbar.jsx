@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import Logo from "../assets/images/logo.png";
-import { BsCart2 } from "react-icons/bs";
 import { links } from "../constants";
 import { FaBars, FaXmark } from "react-icons/fa6";
 

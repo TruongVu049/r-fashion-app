@@ -35,11 +35,6 @@ export default function App() {
                 <Route path="/product/:productId" element={<ProductDetail />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="blog" element={<Blog />} />
-                {/* <Route path="sanpham" element={<SanPham />} />
-              <Route path="/product/:productId" element={<ProductDetail />} />
-              <Route path="blog" element={<Blog />} />
-              <Route path="contact" element={<Contact />} /> */}
-
                 <Route element={<Anonymous />}>
                   <Route path="login" element={<Login />} />
                 </Route>
@@ -47,6 +42,7 @@ export default function App() {
                   <Route path="register" element={<Register />} />
                 </Route>
 
+                {/* private routes */}
                 <Route element={<RequireAuth allowedRoles={"USER"} />}>
                   <Route path="shoppingCart" element={<ShoppingCart />} />
                 </Route>
@@ -59,21 +55,6 @@ export default function App() {
                 <Route element={<RequireAuth allowedRoles={"USER"} />}>
                   <Route path="checkout" element={<Checkout />} />
                 </Route>
-
-                {/* <Route path="checkout" element={<Checkout />} />
-            <Route path="order" element={<Order />} />
-            {!user.id ? (
-              <Route path="login" element={<Login />} />
-            ) : (
-              <Route path="profile" element={<UserProfile />} />
-            )}
-            {!user.id ? (
-              <Route path="register" element={<Register />} />
-            ) : (
-              <Route path="profile" element={<UserProfile />} />
-            )} */}
-
-                {/* catch all */}
                 <Route path="*" element={<NoPage />} />
               </Route>
             </Routes>

@@ -45,9 +45,9 @@ const Login = () => {
       });
       axios
         .post(
-          `http://localhost:60462/api/account/login?email=${email}&password=${encodeURIComponent(
-            pwd
-          )}`
+          `${
+            process.env.REACT_APP_API_KEY
+          }api/account/login?email=${email}&password=${encodeURIComponent(pwd)}`
         )
         .then(async (res) => {
           console.log(res.data);
@@ -185,7 +185,7 @@ const Login = () => {
                   to="/register"
                   className="font-semibold leading-6 text-rose-500 hover:text-red-400"
                 >
-                  Đăng nhập
+                  Đăng ký
                 </Link>
               </p>
             </div>

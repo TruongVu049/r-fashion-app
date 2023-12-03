@@ -24,7 +24,7 @@ const ProductReviews = ({
     console.log(data);
     console.log(reviews.id);
     axios
-      .post("http://localhost:60462/api/product/rating", data, {
+      .post(`${process.env.REACT_APP_API_KEY}api/product/rating`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + user.toKen,

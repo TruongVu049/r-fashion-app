@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { FaBars, FaXmark } from "react-icons/fa6";
+import { FaBars } from "react-icons/fa6";
 
 const Sort = ({ onchangeShowFilter, onChangeSearch }) => {
   console.log("render sort");

@@ -13,7 +13,7 @@ const UserProfile = () => {
     let ignore = false;
     if (user.toKen && user.id) {
       axios
-        .get(`http://localhost:60462/api/account/info/${user.id}`, {
+        .get(`${process.env.REACT_APP_API_KEY}api/account/info/${user.id}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: "Bearer " + user.toKen,
@@ -33,7 +33,7 @@ const UserProfile = () => {
 
   function handleChangeInfo() {
     axios
-      .post("http://localhost:60462/api/account/updateinfo", info, {
+      .post(`${process.env.REACT_APP_API_KEY}api/account/updateinfo`, info, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + user.toKen,

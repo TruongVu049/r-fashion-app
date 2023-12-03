@@ -11,7 +11,7 @@ const ShoppingCart = () => {
 
   function handleRemoveCart(id) {
     axios
-      .post(`http://localhost:60462/api/cart/remove`, id, {
+      .post(`${process.env.REACT_APP_API_KEY}api/cart/remove`, id, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + user.toKen,
@@ -48,7 +48,7 @@ const ShoppingCart = () => {
   useEffect(() => {
     let ignore = false;
     axios
-      .get(`http://localhost:60462/api/cart/index?id=${user.id}`, {
+      .get(`${process.env.REACT_APP_API_KEY}api/cart/index?id=${user.id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + user.toKen,

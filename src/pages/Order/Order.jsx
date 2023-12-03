@@ -19,7 +19,7 @@ const Order = () => {
     console.log(url);
     axios
       .get(
-        `http://localhost:60462/api/order/getorder?id=${user.id}&status=${tabs.status}`,
+        `${process.env.REACT_APP_API_KEY}api/order/getorder?id=${user.id}&status=${tabs.status}`,
         {
           headers: {
             "Content-Type": "application/json",

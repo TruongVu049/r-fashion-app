@@ -21,7 +21,7 @@ const Checkout = () => {
     let ignore = false;
     if (user.toKen && user.id) {
       axios
-        .get(`http://localhost:60462/api/account/info/${user.id}`, {
+        .get(`${process.env.REACT_APP_API_KEY}api/account/info/${user.id}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: "Bearer " + user.toKen,
@@ -39,7 +39,7 @@ const Checkout = () => {
     return () => (ignore = true);
   }, []);
 
-  function handleCreateOrder() {
+  async function handleCreateOrder() {
     const url = `${process.env.REACT_APP_API_KEY}api/order/create`;
     const Order_Items = [];
     state.forEach((item) => {
@@ -58,8 +58,8 @@ const Checkout = () => {
       Order_Items: Order_Items,
     };
     console.log(url, user.toKen, data);
-    axios
-      .post("http://localhost:60462/api/order/create", data, {
+    await axios
+      .post(`${process.env.REACT_APP_API_KEY}api/order/create`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + user.toKen,
@@ -80,20 +80,32 @@ const Checkout = () => {
       <div className="container mx-auto ">
         <div className="flex flex-col gap-5">
           <div className="p-4 bg-white shadow-sm rounded-md">
-            <h2 className="text-rose-500 md:text-xl text-lg capitalize flex items-center gap-3">
-              <FaLocationDot />
-              Địa Chỉ Nhận Hàng
-            </h2>
-            <div className="mt-2 flex md:flex-row flex-col md:items-center md:justify-between gap-2">
-              <div className=" md:text-lg text-base flex flex-col">
-                {info.fullName}
-                <strong>{info.phoneNumber}</strong>
-              </div>
-              <div>
-                <p>{info.address}</p>
-              </div>
-              <div></div>
+            <div className="flex justify-between items-center">
+              <h2 className="text-rose-500 md:text-xl text-lg capitalize flex items-center gap-3">
+                <FaLocationDot />
+                Địa Chỉ Nhận Hàng
+              </h2>
+              {!info.address && (
+                <Link
+                  to={"/profile"}
+                  className="cursor-pointer bg-blue-600 text-white rounded-md py-2 px-4 hover:bg-blue-400 focus:bg-blue-400"
+                >
+                  Thêm địa chỉ
+                </Link>
+              )}
             </div>
+            {info && (
+              <div className="mt-2 flex md:flex-row flex-col md:items-center md:justify-between gap-2">
+                <div className=" md:text-lg text-base flex flex-col">
+                  {info.fullName}
+                  <strong>{info.phoneNumber}</strong>
+                </div>
+                <div>
+                  <p>{info.address}</p>
+                </div>
+                <div></div>
+              </div>
+            )}
           </div>
           <div className="relative p-4 bg-white overflow-x-auto shadow-sm rounded-md">
             <table className="w-full text-sm text-left text-gray-500 ">
@@ -210,7 +222,11 @@ const Checkout = () => {
               </p>
               <button
                 onClick={handleCreateOrder}
-                className="px-6 rounded-s py-3 bg-rose-500 hover:bg-rose-400 text-white"
+                className={
+                  !info?.address
+                    ? "cursor-not-allowed opacity-50 px-6 rounded-s py-3 bg-rose-500 hover:bg-rose-400 text-white"
+                    : "px-6 rounded-s py-3 bg-rose-500 hover:bg-rose-400 text-white"
+                }
               >
                 Dặt hàng
               </button>

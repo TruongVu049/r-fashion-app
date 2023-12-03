@@ -25,7 +25,6 @@ import Notification from "./Notification";
 import ProductTable from "./ProductTable";
 import CartTotal from "./CartTotal";
 import Address from "./Address";
-import ChangePassword from "./ChangePassword";
 import RequireAuth from "./RequireAuth";
 import Anonymous from "./Anonymous ";
 import Wrapper from "./Wrapper";
@@ -61,7 +60,6 @@ export {
   ProductTable,
   CartTotal,
   Address,
-  ChangePassword,
   RequireAuth,
   Anonymous,
   Wrapper,

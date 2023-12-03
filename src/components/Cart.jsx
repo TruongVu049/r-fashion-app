@@ -1,16 +1,12 @@
 import { Link } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
+import { useState } from "react";
 import { BsCart2 } from "react-icons/bs";
 import { FaXmark } from "react-icons/fa6";
-import { AuthContext } from "../context/AuthContext";
 import FormatPrice from "../Helpers/FormatPrice";
 import { useCartContext } from "../context/CartContext";
-import axios from "axios";
 const Cart = () => {
   const { cart } = useCartContext();
   const [isShow, setIsShow] = useState(false);
-
-  console.log(cart);
 
   function handleShow() {
     setIsShow(!isShow);
@@ -38,7 +34,7 @@ const Cart = () => {
         <div className="absolute w-full h-[100vh] inset-[0] opacity-60 bg-[#212121]"></div>
         <div
           className={`
-          w-[450px] h-full bg-while10Color relative
+          xl:w-[30%] sm:w-[50%] w-[90%] h-full bg-while10Color relative
           ease-linear delay-0 duration-[250ms] ml-auto p-[20px] text-center flex flex-col overflow-auto
 
           shadow-[-1px_0px_20px_-5px_#aaa]

@@ -62,7 +62,9 @@ const Register = () => {
       });
       axios
         .post(
-          `http://localhost:60462/api/account/register?email=${email}&fullName=${fullName}&password=${encodeURIComponent(
+          `${
+            process.env.REACT_APP_API_KEY
+          }api/account/register?email=${email}&fullName=${fullName}&password=${encodeURIComponent(
             pwd
           )}`
         )

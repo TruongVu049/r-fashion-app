@@ -1,13 +1,9 @@
 import React, { useState, useContext } from "react";
 import Counter from "./Counter";
-import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import PopupModal from "./PopupModal";
-import Message from "./Message";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import axios from "axios";
-import CartProduct from "./CartProduct";
 import { useCartContext } from "../context/CartContext";
 const ProductOptions = ({ product }) => {
   const { refreshCart } = useCartContext();
@@ -48,7 +44,7 @@ const ProductOptions = ({ product }) => {
     };
     console.log(Cart_Items);
     axios
-      .post("http://localhost:60462/api/cart/create", Cart_Items, {
+      .post(`${process.env.REACT_APP_API_KEY}api/cart/create`, Cart_Items, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + user.toKen,

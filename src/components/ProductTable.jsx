@@ -1,6 +1,4 @@
 import React from "react";
-import { useCartContext } from "../context/CartContext";
-import { useEffect } from "react";
 import { BsTrash } from "react-icons/bs";
 import FormatPrice from "../Helpers/FormatPrice";
 

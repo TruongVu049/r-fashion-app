@@ -19,7 +19,7 @@ export const useAuth = () => {
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
       axios
-        .get(`http://localhost:60462/api/account/authen`, {
+        .get(`${process.env.REACT_APP_API_KEY}api/account/authen`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: "Bearer " + foundUser.toKen,

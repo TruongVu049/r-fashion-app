@@ -3,7 +3,6 @@ import CartProduct from "./CartProduct";
 import { useEffect } from "react";
 import axios from "axios";
 import { PiWarningOctagonLight } from "react-icons/pi";
-import CartSkeleton from "./CartSkeleton";
 const ProductRelations = ({ title, url }) => {
   const [products, setProducts] = useState([]);
 
