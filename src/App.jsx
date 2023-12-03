@@ -28,6 +28,7 @@ export default function App() {
         <BrowserRouter>
           <Wrapper>
             <Routes>
+              {/* asdsa */}
               <Route path="/" element={<Layout />}>
                 {/* public routes */}
                 <Route index element={<Home />} />
