@@ -80,21 +80,14 @@ const OrderItems = ({ items, status, onchaneOrderItemsRating }) => {
                           className="clear-both gap-1 flex justify-between py-2 items-center border-y border-gray-200 border-solid"
                         >
                           <div className="flex items-center gap-1">
-                            <img
-                              className="h-20 w-20  "
-                              src={x.info[0].image}
-                              onError={() =>
-                                (this.src =
-                                  "https://firebasestorage.googleapis.com/v0/b/fashion-app-84f9f.appspot.com/o/images%2Fimg_028-1.jfif-Sun%20Sep%2017%202023%2012%3A13%3A25%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)?alt=media&token=11a5a440-4664-4452-86de-13dc747dc0af")
-                              }
-                            />
+                            <img className="h-20 w-20  " src={x.info.image} />
                             <div>
                               <h4 className="sm:line-clamp-none line-clamp-1 sm:text-base text-sm">
-                                {x.info[0].name}
+                                {x.info.name}
                               </h4>
                               <span className="text-gray-500 sm:text-base text-sm">
                                 Phân loại hàng:{" "}
-                                {`${x.info[0].color}, ${x.info[0].size}`}
+                                {`${x.info.color}, ${x.info.size}`}
                               </span>
                               <span className="block sm:text-base text-sm">
                                 Số lượng: {x.quantity}
@@ -130,8 +123,8 @@ const OrderItems = ({ items, status, onchaneOrderItemsRating }) => {
                                   order_details_id: i.map((item) => item.id),
                                   product_id: i[0].product_id,
                                   user_id: item.user_id,
-                                  product_name: i[0].info[0].name,
-                                  image: i[0].info[0].image,
+                                  product_name: i[0].info.name,
+                                  image: i[0].info.image,
                                   status: true,
                                 });
                               }}
