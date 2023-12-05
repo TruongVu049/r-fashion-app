@@ -59,7 +59,7 @@ const Login = () => {
           } else {
             setErrMsg({
               ...errMsg,
-              errAuth: "Đã xảy ra lỗi vui lòng thực hiện đăng nhập lại!",
+              errAuth: "Đã xảy ra lỗi vui lòng thực hiện đăng nhập lại! ",
             });
           }
         });
