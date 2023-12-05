@@ -80,7 +80,14 @@ const OrderItems = ({ items, status, onchaneOrderItemsRating }) => {
                           className="clear-both gap-1 flex justify-between py-2 items-center border-y border-gray-200 border-solid"
                         >
                           <div className="flex items-center gap-1">
-                            <img className="h-20 w-20" src={x.info[0].image} />
+                            <img
+                              className="h-20 w-20  "
+                              src={x.info[0].image}
+                              onError={() =>
+                                (this.src =
+                                  "https://firebasestorage.googleapis.com/v0/b/fashion-app-84f9f.appspot.com/o/images%2Fimg_028-1.jfif-Sun%20Sep%2017%202023%2012%3A13%3A25%20GMT%2B0700%20(Gi%E1%BB%9D%20%C4%90%C3%B4ng%20D%C6%B0%C6%A1ng)?alt=media&token=11a5a440-4664-4452-86de-13dc747dc0af")
+                              }
+                            />
                             <div>
                               <h4 className="sm:line-clamp-none line-clamp-1 sm:text-base text-sm">
                                 {x.info[0].name}
