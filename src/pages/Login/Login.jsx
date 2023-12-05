@@ -34,7 +34,7 @@ const Login = () => {
         password: pwd,
       };
       axios
-        .post(`https://localhost:44351/api/account/login`, dataLogin, {
+        .post(`${process.env.REACT_APP_API_KEY}api/account/login`, dataLogin, {
           headers: {
             "Content-Type": "application/json",
           },
