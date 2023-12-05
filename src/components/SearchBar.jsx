@@ -16,7 +16,7 @@ const SearchBar = () => {
 
   function postSearch() {
     setIsShow(!isShow);
-    return navigate(`/product?search=${search}`);
+    return navigate(`/product?search=${search.toLowerCase()}`);
   }
 
   const handleKeyDown = (event) => {

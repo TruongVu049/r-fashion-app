@@ -110,8 +110,8 @@ const OrderItems = ({ items, status, onchaneOrderItemsRating }) => {
                         </strong>
                       </div>
                       {status == "Chờ xác nhận" ? (
-                        <button className="border-rose-500 border-2 border-solid text-rose-500 px-10 py-2 hover:bg-rose-500 hover:text-white">
-                          Hủy
+                        <button className="border-rose-500 border-2 border-solid text-rose-500 px-10 py-2  ">
+                          Đang xử lý
                         </button>
                       ) : (
                         status == "Giao hàng thành công" && (

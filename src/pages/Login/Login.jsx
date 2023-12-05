@@ -4,8 +4,6 @@ import { useAuth } from "../../hooks/useAuth";
 import axios from "axios";
 
 const EMAIL_REGEX = /^[\w.+\-]+@gmail\.com$/;
-// const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const PWD_REGEX = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z@#$%^&*_!]{6,}/;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -23,7 +21,6 @@ const Login = () => {
     e.preventDefault();
     let ignore = false;
     const v1 = EMAIL_REGEX.test(email);
-    const v2 = PWD_REGEX.test(pwd);
     if (!v1) {
       ignore = true;
       setErrMsg({
@@ -31,24 +28,17 @@ const Login = () => {
         errEmail: "Email không hợp lệ",
       });
     }
-    if (!v2) {
-      ignore = true;
-      setErrMsg({
-        ...errMsg,
-        errPwd: "Mật khẩu không hợp lệ",
-      });
-    }
     if (!ignore) {
-      console.log({
+      const dataLogin = {
         email: email,
         password: pwd,
-      });
+      };
       axios
-        .post(
-          `${
-            process.env.REACT_APP_API_KEY
-          }api/account/login?email=${email}&password=${encodeURIComponent(pwd)}`
-        )
+        .post(`https://localhost:44351/api/account/login`, dataLogin, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
         .then(async (res) => {
           console.log(res.data);
           await login({
@@ -61,7 +51,7 @@ const Login = () => {
           window.location.href = "/";
         })
         .catch((error) => {
-          if (error.response.status == 404) {
+          if (error.response?.status == 404) {
             setErrMsg({
               ...errMsg,
               errAuth: "Thông tin email và mật khẩu không chính xác",
