@@ -4,7 +4,6 @@ import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 const User = () => {
   const { user, logout } = useContext(AuthContext);
-  console.log("User info", user);
   return (
     <Link to={`${user?.toKen ? "/profile" : "/login"}`}>
       <div className="p-[10px] hover:text-primaryColor duration-300 relative">

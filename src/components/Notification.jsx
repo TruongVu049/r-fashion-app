@@ -6,7 +6,6 @@ const Notification = forwardRef((props, ref) => {
     status: null,
     mes: "",
   });
-  console.log("render notification");
   useImperativeHandle(ref, () => ({
     show(status, mes) {
       setNotify({

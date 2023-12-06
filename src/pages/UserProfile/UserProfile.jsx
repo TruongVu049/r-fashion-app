@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { Profile, ChangePassword, Address } from "../../components";
+import { Loading } from "../../components";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import axios from "axios";
 
@@ -62,23 +62,7 @@ const UserProfile = () => {
   }
   return (
     <div>
-      {isLoading && (
-        <div
-          id="modal-spinner"
-          class={`${
-            isLoading ? "" : "hidden"
-          } fixed inset-0 transition z-[200]`}
-        >
-          <div class="absolute inset-0"></div>
-          <div class="bg-white bg-opacity-50 relative h-full w-full ml-auto z-[201] p-2 flex justify-center items-center">
-            <div class="flex gap-2">
-              <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-              <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-              <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-            </div>
-          </div>
-        </div>
-      )}
+      {isLoading && <Loading />}
       <div className="container mx-auto px-4 mt-40 mb-16">
         <div className="bg-white overflow-hidden shadow rounded-lg border">
           <div className="px-4 py-5 sm:px-6">

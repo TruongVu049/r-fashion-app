@@ -4,7 +4,6 @@ import { AuthContext } from "../context/AuthContext";
 const RequireAuth = ({ allowedRoles }) => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
-  console.log("Require", user);
   return user?.role == allowedRoles ? (
     <Outlet />
   ) : (

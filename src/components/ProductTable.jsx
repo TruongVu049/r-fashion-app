@@ -1,7 +1,7 @@
 import React from "react";
 import { BsTrash } from "react-icons/bs";
 import FormatPrice from "../Helpers/FormatPrice";
-
+import Loading from "./Loading";
 const ProductTable = ({
   cart,
   onchangeAddSelectedProduct,
@@ -115,21 +115,7 @@ const ProductTable = ({
           </table>
         </form>
       </div>
-      <div
-        id="modal-spinner"
-        class={`${
-          isLoading.remove ? "" : "hidden"
-        } fixed inset-0 transition z-[200]`}
-      >
-        <div class="absolute inset-0"></div>
-        <div class="bg-white bg-opacity-50 relative h-full w-full ml-auto z-[201] p-2 flex justify-center items-center">
-          <div class="flex gap-2">
-            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-          </div>
-        </div>
-      </div>
+      {isLoading.remove && <Loading />}
     </>
   );
 };

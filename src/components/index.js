@@ -32,8 +32,10 @@ import CardSkeleton from "./CardSkeleton";
 import Message from "./Message";
 import OrderItems from "./OrderItems";
 import ProductReviews from "./ProductReviews";
+import Loading from "./Loading";
 export {
   Navbar,
+  Loading,
   Footer,
   SearchBar,
   Cart,

@@ -31,7 +31,6 @@ const SearchBar = () => {
     }
     if (isShow) handleFocus();
   }, [isShow]);
-  // console.log("render search");
   return (
     <div>
       <div

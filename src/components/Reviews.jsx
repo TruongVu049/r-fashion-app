@@ -29,7 +29,6 @@ const Reviews = ({ productId }) => {
       ignore = true;
     };
   }, [productId]);
-  console.log(reviews);
   return (
     <>
       {isLoading ? (

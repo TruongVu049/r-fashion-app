@@ -49,7 +49,6 @@ const SanPham = () => {
     let ignore = false;
     const url = `${process.env.REACT_APP_API_KEY}api/products
     ?page=${searchParams.get("page") ?? 1}${params()}`.replace(/ /g, "");
-    console.log(url);
     setStatus("loading");
     axios
       .get(url)

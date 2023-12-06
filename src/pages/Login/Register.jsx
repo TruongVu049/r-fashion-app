@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { PopupModal } from "../../components";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { PopupModal, Loading } from "../../components";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import axios from "axios";
-
 const EMAIL_REGEX = /^[\w.+\-]+@gmail\.com$/;
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -32,7 +30,7 @@ const Register = () => {
         errEmail: "Email không hợp lệ",
       });
     }
-    if (fullName.length == "") {
+    if (fullName.length === "") {
       ignore = true;
       setErrMsg({
         ...errMsg,
@@ -48,11 +46,6 @@ const Register = () => {
       });
     }
     if (!ignore) {
-      console.log({
-        email: email,
-        fullName: fullName,
-        password: pwd,
-      });
       setIsLoading(true);
       axios
         .post(
@@ -71,7 +64,6 @@ const Register = () => {
           }, 1500);
         })
         .catch((error) => {
-          console.log(error.response.status);
           if (error.response.status) {
             setErrMsg({
               ...errMsg,
@@ -274,19 +266,7 @@ const Register = () => {
         </PopupModal>
       ) : null}
 
-      <div
-        id="modal-spinner"
-        class={`${isLoading ? "" : "hidden"} fixed inset-0 transition z-[200]`}
-      >
-        <div class="absolute inset-0"></div>
-        <div class="bg-white bg-opacity-50 relative h-full w-full ml-auto z-[201] p-2 flex justify-center items-center">
-          <div class="flex gap-2">
-            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-          </div>
-        </div>
-      </div>
+      {isLoading && <Loading />}
     </>
   );
 };

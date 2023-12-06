@@ -5,6 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import axios from "axios";
 import { useCartContext } from "../context/CartContext";
+import Loading from "./Loading";
 const ProductOptions = ({ product }) => {
   const { refreshCart } = useCartContext();
   const navigate = new useNavigate();
@@ -22,7 +23,6 @@ const ProductOptions = ({ product }) => {
     axios
       .get(url)
       .then((res) => {
-        console.log(res);
         setOptions(res.data);
       })
       .catch((err) => {
@@ -54,7 +54,6 @@ const ProductOptions = ({ product }) => {
         },
       })
       .then(async (res) => {
-        console.log(res);
         setStatus(true);
         await setTimeout(() => {
           setStatus(false);
@@ -201,19 +200,7 @@ const ProductOptions = ({ product }) => {
           </div>
         </div>
       ) : null}
-      <div
-        id="modal-spinner"
-        class={`${isLoading ? "" : "hidden"} fixed inset-0 transition z-[200]`}
-      >
-        <div class="absolute inset-0"></div>
-        <div class="bg-white bg-opacity-50 relative h-full w-full ml-auto z-[201] p-2 flex justify-center items-center">
-          <div class="flex gap-2">
-            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-          </div>
-        </div>
-      </div>
+      {isLoading && <Loading />}
     </>
   );
 };

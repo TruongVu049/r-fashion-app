@@ -24,8 +24,6 @@ const ProductRelations = ({ title, url }) => {
     };
   }, [url]);
 
-  console.log(products);
-
   return (
     <div className="container mx-auto px-4">
       <h2 className="text-2xl font-semibold border-b border-gray-300">

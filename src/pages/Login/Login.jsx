@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import axios from "axios";
+import { Loading } from "../../components";
 
 const EMAIL_REGEX = /^[\w.+\-]+@gmail\.com$/;
 
@@ -15,8 +16,7 @@ const Login = () => {
     errAuth: "",
   });
 
-  const { user, login } = useAuth();
-  const navigate = new useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,7 +42,6 @@ const Login = () => {
           },
         })
         .then(async (res) => {
-          console.log(res.data);
           await login({
             id: res.data.id,
             email: res.data.email,
@@ -53,7 +52,7 @@ const Login = () => {
           window.location.href = "/";
         })
         .catch((error) => {
-          if (error.response?.status == 404) {
+          if (error.response?.status === 404) {
             setErrMsg({
               ...errMsg,
               errAuth: "Thông tin email và mật khẩu không chính xác",
@@ -186,21 +185,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <div
-          id="modal-spinner"
-          class={`${
-            isLoading ? "" : "hidden"
-          } fixed inset-0 transition z-[200]`}
-        >
-          <div class="absolute inset-0"></div>
-          <div class="bg-white bg-opacity-50 relative h-full w-full ml-auto z-[201] p-2 flex justify-center items-center">
-            <div class="flex gap-2">
-              <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-              <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-              <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-            </div>
-          </div>
-        </div>
+        {isLoading && <Loading />}
       </div>
     </>
   );

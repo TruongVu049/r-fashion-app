@@ -4,7 +4,6 @@ import none_product from "../assets/images/non-product.png";
 
 import CartProduct from "./CartProduct";
 const Product = ({ productList, status }) => {
-  console.log("render product");
   return (
     <div>
       {productList.length === 0 && status === "success" && (

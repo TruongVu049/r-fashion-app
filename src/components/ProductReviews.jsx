@@ -21,8 +21,6 @@ const ProductReviews = ({
       content: formData.get("mes"),
     };
 
-    console.log(data);
-    console.log(reviews.id);
     axios
       .post(`${process.env.REACT_APP_API_KEY}api/product/rating`, data, {
         headers: {

@@ -63,7 +63,6 @@ const OrderItems = ({ items, status, onchaneOrderItemsRating, isLoading }) => {
             {items?.length !== 0 ? (
               items.map((item) => {
                 const result = combineArr(item.Order_Items);
-                console.log(result);
                 return result.map((i, index) => {
                   return (
                     <div key={`${item.id}_${index}`}>

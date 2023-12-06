@@ -30,7 +30,6 @@ const CartProvider = ({ children }) => {
     }
     return () => (ignore = true);
   }, [user.id]);
-  console.log("cart", cart);
 
   const refreshCart = () => {
     axios

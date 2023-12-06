@@ -7,6 +7,7 @@ import axios from "axios";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Loading } from "../../components";
 const Checkout = () => {
   const navigate = new useNavigate();
   const { user } = useContext(AuthContext);
@@ -45,7 +46,6 @@ const Checkout = () => {
   }, []);
 
   async function handleCreateOrder() {
-    const url = `${process.env.REACT_APP_API_KEY}api/order/create`;
     const Order_Items = [];
     state.forEach((item) => {
       Order_Items.push({
@@ -62,7 +62,6 @@ const Checkout = () => {
       total: totalPrice,
       Order_Items: Order_Items,
     };
-    console.log(url, user.toKen, data);
     await axios
       .post(`${process.env.REACT_APP_API_KEY}api/order/create`, data, {
         headers: {
@@ -240,19 +239,7 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-      <div
-        id="modal-spinner"
-        class={`${isLoading ? "" : "hidden"} fixed inset-0 transition z-[200]`}
-      >
-        <div class="absolute inset-0"></div>
-        <div class="bg-white bg-opacity-50 relative h-full w-full ml-auto z-[201] p-2 flex justify-center items-center">
-          <div class="flex gap-2">
-            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
-          </div>
-        </div>
-      </div>
+      {isLoading && <Loading />}
     </div>
   );
 };

@@ -27,7 +27,6 @@ export const useAuth = () => {
         })
         .then((res) => {
           if (res.status === 200) {
-            console.log("status loggin ", res);
             addUser(foundUser);
           }
         })

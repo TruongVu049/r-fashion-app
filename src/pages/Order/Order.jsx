@@ -1,12 +1,10 @@
 import React from "react";
-import { Breadcrumb, OrderItems } from "../../components";
-import { useAsyncError, useLocation } from "react-router-dom";
+import { OrderItems } from "../../components";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 const Order = () => {
   const { user } = useContext(AuthContext);
-  const { state } = useLocation();
   const [tabs, setTabs] = useState({
     index: 1,
     status: "Chờ xác nhận",
@@ -40,8 +38,6 @@ const Order = () => {
       ignore = true;
     };
   }, [tabs]);
-
-  console.log(orderItems);
 
   function handleChangeTab(index, status) {
     setTabs({
