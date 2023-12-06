@@ -8,6 +8,7 @@ const ShoppingCart = () => {
   const { user } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleRemoveCart(id) {
     axios
@@ -47,6 +48,7 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     let ignore = false;
+    setIsLoading(true);
     axios
       .get(`${process.env.REACT_APP_API_KEY}api/cart/index?id=${user.id}`, {
         headers: {
@@ -59,11 +61,12 @@ const ShoppingCart = () => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
     return () => (ignore = true);
   }, []);
-
-  console.log(selectedProduct);
 
   return (
     <div>
@@ -75,6 +78,7 @@ const ShoppingCart = () => {
             onchangeAddSelectedProduct={handleAddSelectedProduct}
             onchangeRemoveSelectedProduct={handleRemoveSelectedProduct}
             onchangeRemoveCart={handleRemoveCart}
+            isLoading={isLoading}
           />
         </div>
         <CartTotal selectedProduct={selectedProduct} />

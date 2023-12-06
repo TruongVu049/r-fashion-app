@@ -14,6 +14,7 @@ const ProductOptions = ({ product }) => {
   const [size, setSize] = useState({});
   const [err, setErr] = useState(false);
   const [status, setStatus] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   function handleChangeColor(item) {
     setColor(item);
     const url = `${process.env.REACT_APP_API_KEY}api/product_option/${item.id}/${color.product_id}`;
@@ -43,6 +44,7 @@ const ProductOptions = ({ product }) => {
       user_id: user.id,
     };
     console.log(Cart_Items);
+    setIsLoading(true);
     axios
       .post(`${process.env.REACT_APP_API_KEY}api/cart/create`, Cart_Items, {
         headers: {
@@ -60,6 +62,9 @@ const ProductOptions = ({ product }) => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
   function handleSubmit(e) {
@@ -195,6 +200,19 @@ const ProductOptions = ({ product }) => {
           </div>
         </div>
       ) : null}
+      <div
+        id="modal-spinner"
+        class={`${isLoading ? "" : "hidden"} fixed inset-0 transition z-[200]`}
+      >
+        <div class="absolute inset-0"></div>
+        <div class="bg-white bg-opacity-50 relative h-full w-full ml-auto z-[201] p-2 flex justify-center items-center">
+          <div class="flex gap-2">
+            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
+            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
+            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

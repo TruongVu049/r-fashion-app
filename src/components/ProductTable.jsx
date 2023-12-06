@@ -7,6 +7,7 @@ const ProductTable = ({
   onchangeAddSelectedProduct,
   onchangeRemoveSelectedProduct,
   onchangeRemoveCart,
+  isLoading,
 }) => {
   function handleSubmit(e) {
     e.preventDefault();
@@ -52,6 +53,17 @@ const ProductTable = ({
               </tr>
             </thead>
             <tbody>
+              {isLoading && (
+                <tr>
+                  <td colspan="8" className="pt-4">
+                    <div className="animate-pulse">
+                      <div className="h-12  flex items-center justify-center mb-4 bg-gray-200 rounded-md "></div>
+                      <div className="h-12  flex items-center justify-center mb-4 bg-gray-200 rounded-md "></div>
+                      <div className="h-12  flex items-center justify-center mb-4 bg-gray-200 rounded-md "></div>
+                    </div>
+                  </td>
+                </tr>
+              )}
               {cart &&
                 cart.map((item) => {
                   return (

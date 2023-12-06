@@ -6,7 +6,6 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import axios from "axios";
 
 const EMAIL_REGEX = /^[\w.+\-]+@gmail\.com$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const Register = () => {
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
@@ -19,13 +18,13 @@ const Register = () => {
     errMatchPwd: "",
   });
   const [success, setSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = new useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let ignore = false;
     const v1 = EMAIL_REGEX.test(email);
-    const v2 = PWD_REGEX.test(pwd);
     if (!v1) {
       ignore = true;
       setErrMsg({
@@ -40,13 +39,7 @@ const Register = () => {
         errFullName: "Vui lòng điền vào tên của bạn!",
       });
     }
-    if (!v2) {
-      ignore = true;
-      setErrMsg({
-        ...errMsg,
-        errPwd: "Mật khẩu không hợp lệ",
-      });
-    }
+
     if (pwd !== matchPwd) {
       ignore = true;
       setErrMsg({
@@ -60,6 +53,7 @@ const Register = () => {
         fullName: fullName,
         password: pwd,
       });
+      setIsLoading(true);
       axios
         .post(
           `${
@@ -72,7 +66,6 @@ const Register = () => {
           setSuccess(true);
         })
         .then(() => {
-          // return navigator("/");
           setTimeout(() => {
             navigate("/login");
           }, 1500);
@@ -85,6 +78,9 @@ const Register = () => {
               errEmail: "Emali đã tồn tại",
             });
           }
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     }
   };
@@ -277,6 +273,20 @@ const Register = () => {
           </div>
         </PopupModal>
       ) : null}
+
+      <div
+        id="modal-spinner"
+        class={`${isLoading ? "" : "hidden"} fixed inset-0 transition z-[200]`}
+      >
+        <div class="absolute inset-0"></div>
+        <div class="bg-white bg-opacity-50 relative h-full w-full ml-auto z-[201] p-2 flex justify-center items-center">
+          <div class="flex gap-2">
+            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
+            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
+            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

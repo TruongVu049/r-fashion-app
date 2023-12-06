@@ -42,7 +42,7 @@ const Breadcrumb = ({ title, namePage }) => {
                     />
                   </svg>
                   <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 ">
-                    Sản phẩm
+                    {namePage}
                   </span>
                 </div>
               </li>

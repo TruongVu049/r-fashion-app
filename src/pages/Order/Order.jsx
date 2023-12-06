@@ -12,11 +12,11 @@ const Order = () => {
     status: "Chờ xác nhận",
   });
   const [orderItems, setOrderItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     let ignore = false;
-    const url = `${process.env.REACT_APP_API_KEY}api/order/getorder?id=${user.id}&status=${tabs.status}`;
-    console.log(url);
+    setIsLoading(true);
     axios
       .get(
         `${process.env.REACT_APP_API_KEY}api/order/getorder?id=${user.id}&status=${tabs.status}`,
@@ -32,6 +32,9 @@ const Order = () => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
     return () => {
       ignore = true;
@@ -128,6 +131,7 @@ const Order = () => {
             items={orderItems}
             status={tabs.status}
             onchaneOrderItemsRating={handleChangeOrderItemsRating}
+            isLoading={isLoading}
           />
         </div>
       </div>

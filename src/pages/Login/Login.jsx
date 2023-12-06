@@ -8,6 +8,7 @@ const EMAIL_REGEX = /^[\w.+\-]+@gmail\.com$/;
 const Login = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [errMsg, setErrMsg] = useState({
     errEmail: "",
     errPwd: "",
@@ -33,6 +34,7 @@ const Login = () => {
         email: email,
         password: pwd,
       };
+      setIsLoading(true);
       axios
         .post(`${process.env.REACT_APP_API_KEY}api/account/login`, dataLogin, {
           headers: {
@@ -62,6 +64,9 @@ const Login = () => {
               errAuth: "Đã xảy ra lỗi vui lòng thực hiện đăng nhập lại! ",
             });
           }
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     }
   };
@@ -178,6 +183,21 @@ const Login = () => {
                   Đăng ký
                 </Link>
               </p>
+            </div>
+          </div>
+        </div>
+        <div
+          id="modal-spinner"
+          class={`${
+            isLoading ? "" : "hidden"
+          } fixed inset-0 transition z-[200]`}
+        >
+          <div class="absolute inset-0"></div>
+          <div class="bg-white bg-opacity-50 relative h-full w-full ml-auto z-[201] p-2 flex justify-center items-center">
+            <div class="flex gap-2">
+              <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
+              <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
+              <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
             </div>
           </div>
         </div>

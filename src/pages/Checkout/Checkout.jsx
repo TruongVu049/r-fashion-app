@@ -12,7 +12,8 @@ const Checkout = () => {
   const { user } = useContext(AuthContext);
   const { state } = useLocation();
   const [info, setInfo] = useState({});
-  console.log(state);
+  const [isLoading, setIsLoading] = useState(false);
+
   let totalPrice = state.reduce(function (prev, cur) {
     return prev + cur.price * parseInt(cur.quantity);
   }, 0);
@@ -20,6 +21,7 @@ const Checkout = () => {
   useEffect(() => {
     let ignore = false;
     if (user.toKen && user.id) {
+      setIsLoading(true);
       axios
         .get(`${process.env.REACT_APP_API_KEY}api/account/info/${user.id}`, {
           headers: {
@@ -34,6 +36,9 @@ const Checkout = () => {
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     }
     return () => (ignore = true);
@@ -231,6 +236,19 @@ const Checkout = () => {
                 Dặt hàng
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="modal-spinner"
+        class={`${isLoading ? "" : "hidden"} fixed inset-0 transition z-[200]`}
+      >
+        <div class="absolute inset-0"></div>
+        <div class="bg-white bg-opacity-50 relative h-full w-full ml-auto z-[201] p-2 flex justify-center items-center">
+          <div class="flex gap-2">
+            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
+            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
+            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
           </div>
         </div>
       </div>

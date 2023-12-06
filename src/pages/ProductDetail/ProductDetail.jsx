@@ -10,34 +10,35 @@ import axios from "axios";
 import FormatPrice from "../../Helpers/FormatPrice";
 const ProductDetail = () => {
   const { productId } = useParams();
-  const [status, setStatus] = useState("loading");
+  const [isLoading, setIsLoading] = useState(false);
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
     let ignore = false;
     const url = `${process.env.REACT_APP_API_KEY}api/product/${productId}`;
-    setStatus("loading");
+    setIsLoading(true);
     axios
       .get(url)
       .then((res) => {
         if (!ignore) {
           setProduct({ ...res.data.product, avgStar: res.data.avgStar });
-          setStatus("success");
         }
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
     return () => {
       ignore = true;
     };
   }, [productId]);
-  console.log(product);
 
   return (
     <div>
       <div className="my-10">
-        {status === "loading" ? (
+        {isLoading ? (
           <section className="py-12  sm:py-16">
             <div className="container mx-auto px-4">
               <nav className="flex">
