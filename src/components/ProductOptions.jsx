@@ -38,34 +38,38 @@ const ProductOptions = ({ product }) => {
   }
 
   function handleAddToCart(quantity) {
-    const Cart_Items = {
-      quantity: quantity,
-      product_options_id: size.id,
-      product_images_id: color.id,
-      product_id: product.id,
-      user_id: user.id,
-    };
-    setIsLoading(true);
-    axios
-      .post(`${process.env.REACT_APP_API_KEY}api/cart/create`, Cart_Items, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + user.toKen,
-        },
-      })
-      .then(async (res) => {
-        setStatus(true);
-        await setTimeout(() => {
-          setStatus(false);
-        }, 1000);
-        refreshCart();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    if (user.toKen) {
+      const Cart_Items = {
+        quantity: quantity,
+        product_options_id: size.id,
+        product_images_id: color.id,
+        product_id: product.id,
+        user_id: user.id,
+      };
+      setIsLoading(true);
+      axios
+        .post(`${process.env.REACT_APP_API_KEY}api/cart/create`, Cart_Items, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + user.toKen,
+          },
+        })
+        .then(async (res) => {
+          setStatus(true);
+          await setTimeout(() => {
+            setStatus(false);
+          }, 1000);
+          refreshCart();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      navigate("/login");
+    }
   }
   function handleSubmit(e) {
     e.preventDefault();

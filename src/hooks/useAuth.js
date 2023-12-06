@@ -6,13 +6,6 @@ export const useAuth = () => {
   const { user, addUser, removeUser } = useUser();
   const { getItem } = useLocalStorage();
 
-  // useEffect(() => {
-  //   const loggedInUser = getItem("user");
-  //   if (loggedInUser) {
-  //     const foundUser = JSON.parse(loggedInUser);
-  //     addUser(foundUser);
-  //   }
-  // }, []);
   useEffect(() => {
     const loggedInUser = getItem("user");
     let ignore = false;
