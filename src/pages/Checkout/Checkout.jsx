@@ -227,9 +227,10 @@ const Checkout = () => {
               </p>
               <button
                 onClick={handleCreateOrder}
+                disabled={!info.address}
                 className={
                   !info?.address
-                    ? "cursor-not-allowed opacity-50 px-6 rounded-s py-3 bg-rose-500 hover:bg-rose-400 text-white"
+                    ? "cursor-not-allowed focus:outline-none opacity-50 px-6 rounded-s py-3 bg-rose-500 hover:bg-rose-400 text-white"
                     : "px-6 rounded-s py-3 bg-rose-500 hover:bg-rose-400 text-white"
                 }
               >

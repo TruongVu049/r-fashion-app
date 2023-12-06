@@ -8,9 +8,16 @@ const ShoppingCart = () => {
   const { user } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState({
+    init: false,
+    remove: false,
+  });
 
   function handleRemoveCart(id) {
+    setIsLoading({
+      ...isLoading,
+      remove: true,
+    });
     axios
       .post(`${process.env.REACT_APP_API_KEY}api/cart/remove`, id, {
         headers: {
@@ -31,6 +38,12 @@ const ShoppingCart = () => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .then(() => {
+        setIsLoading({
+          ...isLoading,
+          remove: false,
+        });
       });
   }
 
@@ -48,7 +61,10 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     let ignore = false;
-    setIsLoading(true);
+    setIsLoading({
+      ...isLoading,
+      init: true,
+    });
     axios
       .get(`${process.env.REACT_APP_API_KEY}api/cart/index?id=${user.id}`, {
         headers: {
@@ -63,7 +79,10 @@ const ShoppingCart = () => {
         console.log(err);
       })
       .finally(() => {
-        setIsLoading(false);
+        setIsLoading({
+          ...isLoading,
+          init: false,
+        });
       });
     return () => (ignore = true);
   }, []);

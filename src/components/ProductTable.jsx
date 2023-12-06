@@ -9,19 +9,6 @@ const ProductTable = ({
   onchangeRemoveCart,
   isLoading,
 }) => {
-  function handleSubmit(e) {
-    e.preventDefault();
-    const cart_item = [];
-    document
-      .querySelectorAll("input[name='checkbox']")
-      .forEach((item, index) => {
-        if (item.checked) {
-          cart_item.push(cart.find((i) => i.id == item.value));
-        }
-      });
-    console.log(cart_item);
-  }
-
   return (
     <>
       <div className="relative p-4 bg-white overflow-x-auto shadow-sm rounded-md">
@@ -53,7 +40,7 @@ const ProductTable = ({
               </tr>
             </thead>
             <tbody>
-              {isLoading && (
+              {isLoading.init && (
                 <tr>
                   <td colspan="8" className="pt-4">
                     <div className="animate-pulse">
@@ -127,6 +114,21 @@ const ProductTable = ({
             </tbody>
           </table>
         </form>
+      </div>
+      <div
+        id="modal-spinner"
+        class={`${
+          isLoading.remove ? "" : "hidden"
+        } fixed inset-0 transition z-[200]`}
+      >
+        <div class="absolute inset-0"></div>
+        <div class="bg-white bg-opacity-50 relative h-full w-full ml-auto z-[201] p-2 flex justify-center items-center">
+          <div class="flex gap-2">
+            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
+            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
+            <div class="w-5 h-5 rounded-full animate-pulse bg-rose-500"></div>
+          </div>
+        </div>
       </div>
     </>
   );

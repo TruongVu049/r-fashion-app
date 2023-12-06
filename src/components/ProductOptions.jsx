@@ -18,7 +18,7 @@ const ProductOptions = ({ product }) => {
   function handleChangeColor(item) {
     setColor(item);
     const url = `${process.env.REACT_APP_API_KEY}api/product_option/${item.id}/${color.product_id}`;
-    console.log(url);
+    setIsLoading(true);
     axios
       .get(url)
       .then((res) => {
@@ -27,6 +27,9 @@ const ProductOptions = ({ product }) => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -35,7 +38,6 @@ const ProductOptions = ({ product }) => {
   }
 
   function handleAddToCart(quantity) {
-    const url = `${process.env.REACT_APP_API_KEY}api/cart/create`;
     const Cart_Items = {
       quantity: quantity,
       product_options_id: size.id,
@@ -43,7 +45,6 @@ const ProductOptions = ({ product }) => {
       product_id: product.id,
       user_id: user.id,
     };
-    console.log(Cart_Items);
     setIsLoading(true);
     axios
       .post(`${process.env.REACT_APP_API_KEY}api/cart/create`, Cart_Items, {

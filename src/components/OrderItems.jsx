@@ -60,7 +60,7 @@ const OrderItems = ({ items, status, onchaneOrderItemsRating, isLoading }) => {
       ) : (
         <>
           <div className="flex flex-col gap-5">
-            {items?.length != 0 ? (
+            {items?.length !== 0 ? (
               items.map((item) => {
                 const result = combineArr(item.Order_Items);
                 console.log(result);
@@ -95,6 +95,7 @@ const OrderItems = ({ items, status, onchaneOrderItemsRating, isLoading }) => {
                                 <img
                                   className="h-20 w-20  "
                                   src={x.info.image}
+                                  alt="image"
                                 />
                                 <div>
                                   <h4 className="sm:line-clamp-none line-clamp-1 sm:text-base text-sm">
@@ -124,12 +125,12 @@ const OrderItems = ({ items, status, onchaneOrderItemsRating, isLoading }) => {
                               )}
                             </strong>
                           </div>
-                          {status == "Chờ xác nhận" ? (
+                          {status === "Chờ xác nhận" ? (
                             <button className="border-rose-500 border-2 border-solid text-rose-500 px-10 py-2  ">
                               Đang xử lý
                             </button>
                           ) : (
-                            status == "Giao hàng thành công" && (
+                            status === "Giao hàng thành công" && (
                               <div className="flex items-center gap-4">
                                 <button
                                   onClick={() => {
