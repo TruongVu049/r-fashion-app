@@ -12,12 +12,12 @@ export const links = [
 
   {
     id: 4,
-    name: "Blog",
+    name: "Bài Viết",
     path: "/blog",
   },
   {
     id: 5,
-    name: "Contact",
+    name: "Liên hệ",
     path: "/contact",
   },
 ];
