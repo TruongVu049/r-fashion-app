@@ -1,8 +1,13 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import CardSkeleton from "./CardSkeleton";
 import CartProduct from "./CartProduct";
+const tabTitle = [
+  { id: 0, title: "Mới ra" },
+  { id: 1, title: "Mua nhiều" },
+  { id: 2, title: "Giảm giá" },
+];
+const litmitP = 8;
 const Deals = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,53 +44,33 @@ const Deals = () => {
       <div className="border-b border-gray-300">
         <div>
           <div className="flex gap-x-4 justify-center items-center">
-            <button
-              className={`${
-                activeIndex == 0 && "text-primaryColor"
-              } py-6 px-3 mx-1  duration-300 relative 
+            {tabTitle?.map((item) => (
+              <button
+                key={item.id}
+                className={` py-6 px-3 mx-1  duration-300 relative 
                     after:content-[''] after:absolute after:left-0 after:bottom-[10px] after:h-[2.5px] after:ease-linear
                     after:w-full after:bg-primaryColor after:scale-x-0 after:duration-300 after:origin-bottom-left
-                     hover:text-primaryColor hover:after:scale-x-[1]`}
-              onClick={() => setActiveIndex(0)}
-            >
-              Mới ra
-            </button>
-            <button
-              className={`${
-                activeIndex == 1 && "text-primaryColor"
-              } py-6 px-3 mx-1  duration-300 relative 
-                    after:content-[''] after:absolute after:left-0 after:bottom-[10px] after:h-[2.5px] after:ease-linear
-                    after:w-full after:bg-primaryColor after:scale-x-0 after:duration-300 after:origin-bottom-left
-                     hover:text-primaryColor hover:after:scale-x-[1]`}
-              onClick={() => setActiveIndex(1)}
-            >
-              Mua nhiều
-            </button>
-            <button
-              className={`${
-                activeIndex == 2 && "text-primaryColor"
-              } py-6 px-3 mx-1  duration-300 relative 
-                    after:content-[''] after:absolute after:left-0 after:bottom-[10px] after:h-[2.5px] after:ease-linear
-                    after:w-full after:bg-primaryColor after:scale-x-0 after:duration-300 after:origin-bottom-left
-                     hover:text-primaryColor hover:after:scale-x-[1]`}
-              onClick={() => setActiveIndex(2)}
-            >
-              Sale
-            </button>
+                     hover:text-primaryColor
+                     ${
+                       activeIndex === item.id
+                         ? "text-primaryColor after:scale-x-[1]"
+                         : " hover:after:scale-x-[1]"
+                     }
+                    `}
+                onClick={() => setActiveIndex(item.id)}
+              >
+                {item.title}
+              </button>
+            ))}
           </div>
         </div>
       </div>
       <div className="py-6">
         {isLoading ? (
           <div className="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 relative">
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
-            <CardSkeleton />
+            {new Array(litmitP).fill(1, 1).map((item) => (
+              <CardSkeleton height={"lg:h-72 md:h-64 sm:h-56 h-52"} />
+            ))}
           </div>
         ) : (
           product && (
@@ -105,6 +90,7 @@ const Deals = () => {
                       brand={item.brand}
                       price={item.price}
                       Img={item.image}
+                      height={"lg:h-72 md:h-64 sm:h-56 h-52"}
                     />
                   </div>
                 );

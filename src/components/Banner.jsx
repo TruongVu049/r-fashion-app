@@ -20,6 +20,30 @@ import ImgQC3 from "../assets/images/img_2.webp";
 import ImgQC2 from "../assets/images/img_3.webp";
 
 let imgBanner = [Banner1, Banner2, Banner3];
+const deals = [
+  {
+    id: 1,
+    title: "Nón",
+    content: "Giảm giá 20%",
+    href: "/product",
+    img: ImgQC1,
+  },
+  {
+    id: 2,
+    title: "Áo",
+    content: "Giảm giá 20%",
+    href: "/product",
+    img: ImgQC3,
+  },
+  {
+    id: 2,
+    title: "Quần",
+    content: "Giảm giá 20%",
+    href: "/product",
+    img: ImgQC2,
+  },
+];
+
 export default function Banner() {
   return (
     <>
@@ -35,16 +59,14 @@ export default function Banner() {
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper cursor-pointer mt-[89px]  "
+        className="mySwiper cursor-pointer mt-[73px]  "
       >
         {imgBanner.map((item, index) => {
           return (
             <SwiperSlide key={index}>
               <ImageComponent
                 src={item}
-                height={
-                  "lg:h-80 md:h-72 sm:h-64 h-52 animate-animationFadeLeft z-0"
-                }
+                height={"lg:h-80 md:h-72 sm:h-64 h-52  z-0"}
                 cusClass={""}
                 alt="Banner Image"
               />
@@ -53,79 +75,36 @@ export default function Banner() {
         })}
       </Swiper>
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-3 grid-cols-1 gap-10 my-20">
-          <div className="relative rounded-2xl overflow-hidden ">
-            <ImageComponent
-              src={ImgQC1}
-              height={" sm:h-52 h-80 animate-animationFadeLeft z-0"}
-              cusClass={""}
-              alt="Banner Image"
-            />
-            <div className="absolute top-[50%] translate-y-[-50%] left-0 pl-8">
-              <h5 className="lg:text-xl text-xl font-semibold opacity-70 ">
-                Nón
-              </h5>
-              <h3 className="lg:text-3xl text-3xl py-2 font-semibold ">
-                Giảm giá 20%
-              </h3>
-              <button>
-                <Link
-                  className="bg-primaryColor text-while10Color duration-200 rounded-lg hover:bg-secondColor text-lg font-semibold py-3 px-6"
-                  to="/product"
-                >
-                  Mua Ngay
-                </Link>
-              </button>
+        <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-10 gap-4 md:my-10 sm:my-6 my-4">
+          {deals?.map((item) => (
+            <div
+              key={item.id}
+              className="relative rounded-2xl overflow-hidden "
+            >
+              <ImageComponent
+                src={item.img}
+                height={"sm:h-52 h-80 z-0"}
+                cusClass={""}
+                alt="Banner Image"
+              />
+              <div className="absolute top-[50%] translate-y-[-50%] left-0 pl-8">
+                <h5 className="lg:text-lg text-base font-semibold opacity-70 ">
+                  {item.title}
+                </h5>
+                <h3 className="lg:text-2xl text-xl py-2 font-semibold ">
+                  {item.content}
+                </h3>
+                <button>
+                  <Link
+                    className="bg-primaryColor text-while10Color duration-200 rounded-lg hover:bg-secondColor lg:text-lg md:text-base text-sm  py-3 px-6"
+                    to={item.href}
+                  >
+                    Mua Ngay
+                  </Link>
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="relative rounded-2xl overflow-hidden ">
-            <ImageComponent
-              src={ImgQC2}
-              height={" sm:h-52 h-80 animate-animationFadeLeft z-0"}
-              cusClass={""}
-              alt="Banner Image"
-            />
-            <div className="absolute top-[50%] translate-y-[-50%] left-0 pl-8">
-              <h5 className="lg:text-xl text-xl font-semibold opacity-70 ">
-                Nón
-              </h5>
-              <h3 className="lg:text-3xl text-3xl py-2 font-semibold ">
-                Giảm giá 20%
-              </h3>
-              <button>
-                <Link
-                  className="bg-primaryColor text-while10Color duration-200 rounded-lg hover:bg-secondColor text-lg font-semibold py-3 px-6"
-                  to="/product"
-                >
-                  Mua Ngay
-                </Link>
-              </button>
-            </div>
-          </div>
-          <div className="relative rounded-2xl overflow-hidden">
-            <ImageComponent
-              src={ImgQC3}
-              height={"sm:h-52 h-80 animate-animationFadeLeft z-0"}
-              cusClass={""}
-              alt="Banner Image"
-            />
-            <div className="absolute top-[50%] translate-y-[-50%] left-0 pl-8">
-              <h5 className="lg:text-xl text-xl font-semibold opacity-70 ">
-                Nón
-              </h5>
-              <h3 className="lg:text-3xl text-3xl py-2 font-semibold ">
-                Giảm giá 20%
-              </h3>
-              <button>
-                <Link
-                  className="bg-primaryColor text-while10Color duration-200 rounded-lg hover:bg-secondColor text-lg font-semibold py-3 px-6"
-                  to="/product"
-                >
-                  Mua Ngay
-                </Link>
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </>

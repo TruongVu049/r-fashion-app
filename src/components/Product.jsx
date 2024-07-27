@@ -3,7 +3,7 @@ import CardSkeleton from "./CardSkeleton";
 import none_product from "../assets/images/non-product.png";
 
 import CartProduct from "./CartProduct";
-const Product = ({ productList, status }) => {
+const Product = ({ productList, status, limit }) => {
   return (
     <div>
       {productList.length === 0 && status === "success" && (
@@ -18,14 +18,9 @@ const Product = ({ productList, status }) => {
       )}
       {status === "loading" ? (
         <div className="grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 relative">
-          <CardSkeleton />
-          <CardSkeleton />
-          <CardSkeleton />
-          <CardSkeleton />
-          <CardSkeleton />
-          <CardSkeleton />
-          <CardSkeleton />
-          <CardSkeleton />
+          {new Array(limit).fill(1, 1).map((item, index) => (
+            <CardSkeleton key={index} />
+          ))}
         </div>
       ) : (
         productList.length != 0 && (
@@ -40,6 +35,7 @@ const Product = ({ productList, status }) => {
                   price={item.price}
                   Img={item.image}
                   avgStar={item.avgStar}
+                  height={"xl:h-[217px] lg:h-[213px] md:h-[156px] h-[auto]"}
                 />
               );
             })}

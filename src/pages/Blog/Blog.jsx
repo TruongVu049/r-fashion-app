@@ -54,9 +54,9 @@ const Blog = () => {
     <div>
       <Breadcrumb title={"blog"} namePage={"blog"} />
       <div className="bg-white pb-24 pt-10 sm:pb-32 sm:pt-10">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="lg:container mx-auto sm:container px-6 lg:px-8">
           <div className=" lg:mx-0 flex justify-between items-center">
-            <h2 className="sm:text-3xl text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="sm:text-3xl text-2xl font-bold tracking-tight text-gray-900">
               Bài viết nổi bật
             </h2>
             <button>
@@ -109,7 +109,7 @@ const Blog = () => {
           </div>
         </div>
       </div>
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 mb-12">
+      <div className="lg:container mx-auto sm:container px-6 lg:px-8 mb-12">
         <Pagination currentPage={1} params={() => {}} data={{ totalPage: 1 }} />
       </div>
     </div>

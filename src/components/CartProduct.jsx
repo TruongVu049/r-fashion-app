@@ -1,4 +1,3 @@
-import React from "react";
 import { BiSolidStar, BiSolidStarHalf, BiStar } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { ImageComponent } from "../components";
@@ -11,17 +10,14 @@ const CartProduct = ({
   price,
   Img,
   avgStar,
+  height,
 }) => {
   return (
-    <div
-      className="rounded-lg cursor-pointer duration-200 transition-shadow ease-in-out
-                hover:translate-y-[-0.125rem] hover:z-[1] hover:shadow-[0_0.0625rem_20px_0_rgba(0,0,0,.05)]
-              bg-while10Color overflow-hidden relative"
-    >
-      <div className="">
-        <ImageComponent src={Img} height={"h-40"} cusClass={""} />
+    <div className="border border-gray-200 rounded-lg cursor-pointer duration-200 transition-shadow ease-in-out hover:translate-y-[-0.125rem] hover:z-[1] hover:shadow-[0_0.0625rem_20px_0_rgba(0,0,0,.05)] bg-while10Color overflow-hidden relative">
+      <div>
+        <ImageComponent src={Img} height={height} cusClass={""} />
       </div>
-      <div className="p-[10px_10px_20px_10px] text-center">
+      <div className="p-[10px_10px_20px_10px] text-center ">
         <h4 className="text-secondColor leading-4 opacity-80 font-semibold text-[13px]">
           {brand}
         </h4>
@@ -37,9 +33,6 @@ const CartProduct = ({
                   className="block h-4 w-4 align-middle text-yellow-500"
                 />
               );
-              // index = 3, avgstar = 2.4
-              // > 0 <= 0.5
-              // > 0.5
             } else if (
               avgStar < index + 1 &&
               Math.ceil(avgStar) === index + 1

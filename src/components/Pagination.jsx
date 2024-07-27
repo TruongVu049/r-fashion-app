@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Pagination = ({ currentPage, params, data }) => {
   console.log("render pagination");
   return (
-    <nav className="ml-auto">
+    <nav className="sm:ml-auto sm:mr-0 mx-auto">
       <ul className="flex items-center -space-x-px h-10 text-base">
         <li>
           <Link

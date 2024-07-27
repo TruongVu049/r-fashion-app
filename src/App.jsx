@@ -7,24 +7,21 @@ import {
   ShoppingCart,
   UserProfile,
   Register,
+  SanPham,
+  ProductDetail,
+  Contact,
+  Blog,
+  Checkout,
+  Order,
 } from "./pages";
 import { AuthContext } from "./context/AuthContext";
 import CartProvider from "./context/CartContext";
 import { useAuth } from "./hooks/useAuth";
 import { RequireAuth, Anonymous, Wrapper, Loading } from "./components";
-import { lazy, Suspense } from "react";
-
-const PRODUCT = lazy(() => import("./pages/Product/Product.jsx"));
-const PRODUCTDETAIL = lazy(() =>
-  import("./pages/ProductDetail/ProductDetail.jsx")
-);
-const CONTACT = lazy(() => import("./pages/Contact/Contact.jsx"));
-const BLOG = lazy(() => import("./pages/Blog/Blog.jsx"));
-const CHECKOUT = lazy(() => import("./pages/Checkout/Checkout.jsx"));
-const ORDER = lazy(() => import("./pages/Order/Order.jsx"));
+import { Suspense } from "react";
 
 export default function App() {
-  const { user, login, logout } = useAuth();
+  const { user, logout } = useAuth();
   return (
     <AuthContext.Provider value={{ user, logout }}>
       <CartProvider>
@@ -38,7 +35,7 @@ export default function App() {
                   path="product"
                   element={
                     <Suspense fallback={<Loading />}>
-                      <PRODUCT />
+                      <SanPham />
                     </Suspense>
                   }
                 />
@@ -46,7 +43,7 @@ export default function App() {
                   path="/product/:productId"
                   element={
                     <Suspense fallback={<Loading />}>
-                      <PRODUCTDETAIL />
+                      <ProductDetail />
                     </Suspense>
                   }
                 />
@@ -54,7 +51,7 @@ export default function App() {
                   path="contact"
                   element={
                     <Suspense fallback={<Loading />}>
-                      <CONTACT />
+                      <Contact />
                     </Suspense>
                   }
                 />
@@ -62,7 +59,7 @@ export default function App() {
                   path="blog"
                   element={
                     <Suspense fallback={<Loading />}>
-                      <BLOG />
+                      <Blog />
                     </Suspense>
                   }
                 />
@@ -82,7 +79,7 @@ export default function App() {
                     path="order"
                     element={
                       <Suspense fallback={<Loading />}>
-                        <ORDER />
+                        <Order />
                       </Suspense>
                     }
                   />
@@ -95,7 +92,7 @@ export default function App() {
                     path="checkout"
                     element={
                       <Suspense fallback={<Loading />}>
-                        <CHECKOUT />
+                        <Checkout />
                       </Suspense>
                     }
                   />

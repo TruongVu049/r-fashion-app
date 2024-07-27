@@ -25,12 +25,12 @@ const Navbar = () => {
       }`}
       >
         <div
-          className={`xl:container mx-auto lg:container sm:container 
+          className={`lg:container mx-auto sm:container 
       
       `}
         >
           <div className="flex sm:items-center justify-between items-center">
-            <div className="py-6 px-3 mx-1">
+            <div className="py-4 px-3 mx-1">
               <NavLink to="/">
                 <img
                   className="sm:h-10 sm:w-10 h-8 w-8"
@@ -66,9 +66,6 @@ const Navbar = () => {
 
               <User />
               <Cart />
-              {/* <Link to={"/shoppingCart"}>
-                <BsCart2 className="text-[20px]"></BsCart2>
-              </Link> */}
               <div
                 onClick={handleShow}
                 className="hover:text-primaryColor duration-300 py-6 px-3  mx-1 md:hidden"

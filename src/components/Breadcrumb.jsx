@@ -4,7 +4,7 @@ const Breadcrumb = ({ title, namePage }) => {
   return (
     <div className="bg-gray-100">
       <div className="xl:container mx-auto lg:container sm:container">
-        <div className=" p-5 pb-0 text-center mt-[89px]">
+        <div className=" p-5 pb-0 text-center mt-[72px]">
           <nav className="flex">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
               <li className="inline-flex items-center">
