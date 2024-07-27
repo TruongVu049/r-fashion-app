@@ -8,6 +8,7 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../../components";
+import { Helmet } from "react-helmet";
 const Checkout = () => {
   const navigate = new useNavigate();
   const { user } = useContext(AuthContext);
@@ -80,167 +81,180 @@ const Checkout = () => {
   }
 
   return (
-    <div className="bg-gray-100 px-4 pt-[149px] pb-[60px]">
-      <div className="container mx-auto ">
-        <div className="flex flex-col gap-5">
-          <div className="p-4 bg-white shadow-sm rounded-md">
-            <div className="flex justify-between items-center">
-              <h2 className="text-rose-500 md:text-xl text-lg capitalize flex items-center gap-3">
-                <FaLocationDot />
-                Địa Chỉ Nhận Hàng
-              </h2>
-              {!info.address && (
-                <Link
-                  to={"/profile"}
-                  className="cursor-pointer bg-blue-600 text-white rounded-md py-2 px-4 hover:bg-blue-400 focus:bg-blue-400"
-                >
-                  Thêm địa chỉ
-                </Link>
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Thanh toán</title>
+        <meta name="description" content="FAF - Thời trang nam nữ" />
+      </Helmet>
+      <div className="bg-gray-100 px-4 pt-[149px] pb-[60px]">
+        <div className="container mx-auto ">
+          <div className="flex flex-col gap-5">
+            <div className="p-4 bg-white shadow-sm rounded-md">
+              <div className="flex justify-between items-center">
+                <h2 className="text-rose-500 md:text-xl text-lg capitalize flex items-center gap-3">
+                  <FaLocationDot />
+                  Địa Chỉ Nhận Hàng
+                </h2>
+                {!info.address && (
+                  <Link
+                    to={"/profile"}
+                    className="cursor-pointer bg-blue-600 text-white rounded-md py-2 px-4 hover:bg-blue-400 focus:bg-blue-400"
+                  >
+                    Thêm địa chỉ
+                  </Link>
+                )}
+              </div>
+              {info && (
+                <div className="mt-2 flex md:flex-row flex-col md:items-center md:justify-between gap-2">
+                  <div className=" md:text-lg text-base flex flex-col">
+                    {info.fullName}
+                    <strong>{info.phoneNumber}</strong>
+                  </div>
+                  <div>
+                    <p>{info.address}</p>
+                  </div>
+                  <div></div>
+                </div>
               )}
             </div>
-            {info && (
-              <div className="mt-2 flex md:flex-row flex-col md:items-center md:justify-between gap-2">
-                <div className=" md:text-lg text-base flex flex-col">
-                  {info.fullName}
-                  <strong>{info.phoneNumber}</strong>
-                </div>
-                <div>
-                  <p>{info.address}</p>
-                </div>
-                <div></div>
-              </div>
-            )}
-          </div>
-          <div className="relative p-4 bg-white overflow-x-auto shadow-sm rounded-md">
-            <table className="w-full text-sm text-left text-gray-500 ">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 whitespace-nowrap font-semibold "
-                  >
-                    Sản Phẩm
-                  </th>
-                  <th scope="col" className="px-6 py-3 whitespace-nowrap"></th>
-                  <th scope="col" className="px-6 py-3 whitespace-nowrap"></th>
-                  <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                    Đơn Giá
-                  </th>
-                  <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                    Số Lượng
-                  </th>
-                  <th scope="col" className="px-6 py-3 whitespace-nowrap">
-                    Thành Tiền
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {state &&
-                  state.map((item) => {
-                    return (
-                      <tr
-                        key={
-                          item.id +
-                          "_" +
-                          item.product_images_id +
-                          "_" +
-                          item.product_options_id
-                        }
-                        className="bg-white border-b "
-                      >
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+            <div className="relative p-4 bg-white overflow-x-auto shadow-sm rounded-md">
+              <table className="w-full text-sm text-left text-gray-500 ">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 whitespace-nowrap font-semibold "
+                    >
+                      Sản Phẩm
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 whitespace-nowrap"
+                    ></th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 whitespace-nowrap"
+                    ></th>
+                    <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                      Đơn Giá
+                    </th>
+                    <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                      Số Lượng
+                    </th>
+                    <th scope="col" className="px-6 py-3 whitespace-nowrap">
+                      Thành Tiền
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {state &&
+                    state.map((item) => {
+                      return (
+                        <tr
+                          key={
+                            item.id +
+                            "_" +
+                            item.product_images_id +
+                            "_" +
+                            item.product_options_id
+                          }
+                          className="bg-white border-b "
                         >
-                          <img className="h-12 w-12" src={item.image} />
-                        </th>
-                        <td className="px-6 py-4 ">
-                          <h4 className="line-clamp-1 md:text-base text-sm">
-                            {item.name}
-                          </h4>
-                        </td>
-                        <td className="px-6 py-4 capitalize">
-                          <h6 className="line-clamp-2 md:text-sm text-xs">
-                            {"Loại: " + item.color + ", " + item.size}
-                          </h6>
-                        </td>
-                        <td className="px-6 py-4 font-semibold whitespace-nowrap">
-                          {FormatPrice(item.price)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {item.quantity}
-                        </td>
-                        <td className="px-6 py-4 font-semibold text-rose-500 whitespace-nowrap">
-                          {FormatPrice(item.price * parseInt(item.quantity))}
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="p-4 bg-white shadow-sm rounded-md">
-            <div className="flex items-center justify-between">
-              <h2 className="md:text-xl text-lg capitalize flex items-center gap-3">
-                Phương Thức Thanh Toán
-              </h2>
-              <button className="md:p-2 pl-0 text-blue-600 hover:text-blue-500 cursor-pointer">
-                Thanh toán khi nhận hàng
-              </button>
+                          <th
+                            scope="row"
+                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                          >
+                            <img className="h-12 w-12" src={item.image} />
+                          </th>
+                          <td className="px-6 py-4 ">
+                            <h4 className="line-clamp-1 md:text-base text-sm">
+                              {item.name}
+                            </h4>
+                          </td>
+                          <td className="px-6 py-4 capitalize">
+                            <h6 className="line-clamp-2 md:text-sm text-xs">
+                              {"Loại: " + item.color + ", " + item.size}
+                            </h6>
+                          </td>
+                          <td className="px-6 py-4 font-semibold whitespace-nowrap">
+                            {FormatPrice(item.price)}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            {item.quantity}
+                          </td>
+                          <td className="px-6 py-4 font-semibold text-rose-500 whitespace-nowrap">
+                            {FormatPrice(item.price * parseInt(item.quantity))}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
             </div>
-          </div>
 
-          <div className="p-4 bg-white shadow-sm rounded-md border border-gray-200">
-            <div className="flex items-center justify-between">
-              <h2 className="md:text-xl text-lg capitalize flex items-center gap-3">
-                <BiSolidDiscount className="text-rose-500"></BiSolidDiscount>
-                Voucher
-              </h2>
+            <div className="p-4 bg-white shadow-sm rounded-md">
+              <div className="flex items-center justify-between">
+                <h2 className="md:text-xl text-lg capitalize flex items-center gap-3">
+                  Phương Thức Thanh Toán
+                </h2>
+                <button className="md:p-2 pl-0 text-blue-600 hover:text-blue-500 cursor-pointer">
+                  Thanh toán khi nhận hàng
+                </button>
+              </div>
             </div>
-            <div className="mt-2 flex md:flex-row flex-col md:items-center md:justify-between gap-2"></div>
 
-            <div className="lg:w-80 md:w-72  md:float-right">
-              <h4 className="md:text-base text-sm flex justify-between items-center pb-2">
-                Tổng tiền hàng:
-                <span>{FormatPrice(totalPrice)}</span>
-              </h4>
-              <h4 className="md:text-base text-sm flex justify-between items-center pb-2">
-                Phí vận chuyển:
-                <span>đ 0 </span>
-              </h4>
-              <h4 className="md:text-lg text-base flex justify-between items-center pb-2">
-                Tổng thanh toán:
-                <strong className="text-rose-500 md:text-2xl text-lg">
-                  {FormatPrice(totalPrice)}
-                </strong>
-              </h4>
-            </div>
-            <div className="clear-both"></div>
-            <div className="md:mt-8 mt-4   flex md:items-center md:flex-row flex-col md:gap-0 gap-2 md:justify-between">
-              <p>
-                Nhấn "Đặt hàng" đồng nghĩa với việc bạn đồng ý tuân theo{" "}
-                <Link className="text-blue-600 hover:text-blue-500" to={"#"}>
-                  Điều khoản Shop
-                </Link>
-              </p>
-              <button
-                onClick={handleCreateOrder}
-                disabled={!info.address}
-                className={
-                  !info?.address
-                    ? "cursor-not-allowed focus:outline-none opacity-50 px-6 rounded-s py-3 bg-rose-500 hover:bg-rose-400 text-white"
-                    : "px-6 rounded-s py-3 bg-rose-500 hover:bg-rose-400 text-white"
-                }
-              >
-                Dặt hàng
-              </button>
+            <div className="p-4 bg-white shadow-sm rounded-md border border-gray-200">
+              <div className="flex items-center justify-between">
+                <h2 className="md:text-xl text-lg capitalize flex items-center gap-3">
+                  <BiSolidDiscount className="text-rose-500"></BiSolidDiscount>
+                  Voucher
+                </h2>
+              </div>
+              <div className="mt-2 flex md:flex-row flex-col md:items-center md:justify-between gap-2"></div>
+
+              <div className="lg:w-80 md:w-72  md:float-right">
+                <h4 className="md:text-base text-sm flex justify-between items-center pb-2">
+                  Tổng tiền hàng:
+                  <span>{FormatPrice(totalPrice)}</span>
+                </h4>
+                <h4 className="md:text-base text-sm flex justify-between items-center pb-2">
+                  Phí vận chuyển:
+                  <span>đ 0 </span>
+                </h4>
+                <h4 className="md:text-lg text-base flex justify-between items-center pb-2">
+                  Tổng thanh toán:
+                  <strong className="text-rose-500 md:text-2xl text-lg">
+                    {FormatPrice(totalPrice)}
+                  </strong>
+                </h4>
+              </div>
+              <div className="clear-both"></div>
+              <div className="md:mt-8 mt-4   flex md:items-center md:flex-row flex-col md:gap-0 gap-2 md:justify-between">
+                <p>
+                  Nhấn "Đặt hàng" đồng nghĩa với việc bạn đồng ý tuân theo{" "}
+                  <Link className="text-blue-600 hover:text-blue-500" to={"#"}>
+                    Điều khoản Shop
+                  </Link>
+                </p>
+                <button
+                  onClick={handleCreateOrder}
+                  disabled={!info.address}
+                  className={
+                    !info?.address
+                      ? "cursor-not-allowed focus:outline-none opacity-50 px-6 rounded-s py-3 bg-rose-500 hover:bg-rose-400 text-white"
+                      : "px-6 rounded-s py-3 bg-rose-500 hover:bg-rose-400 text-white"
+                  }
+                >
+                  Dặt hàng
+                </button>
+              </div>
             </div>
           </div>
         </div>
+        {isLoading && <Loading />}
       </div>
-      {isLoading && <Loading />}
-    </div>
+    </>
   );
 };
 

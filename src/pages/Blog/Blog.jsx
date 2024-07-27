@@ -1,7 +1,7 @@
 import { Breadcrumb, Pagination } from "../../components";
 import { Link } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
-
+import { Helmet } from "react-helmet";
 const Blog = () => {
   const posts = [
     {
@@ -52,6 +52,11 @@ const Blog = () => {
   ];
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Bài viết</title>
+        <meta name="description" content="FAF - Thời trang nam nữ" />
+      </Helmet>
       <Breadcrumb title={"blog"} namePage={"blog"} />
       <div className="bg-white pb-24 pt-10 sm:pb-32 sm:pt-10">
         <div className="lg:container mx-auto sm:container px-6 lg:px-8">

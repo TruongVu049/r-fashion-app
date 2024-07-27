@@ -33,6 +33,7 @@ import Message from "./Message";
 import OrderItems from "./OrderItems";
 import ProductReviews from "./ProductReviews";
 import Loading from "./Loading";
+import Modal from "./Modal";
 export {
   Navbar,
   Loading,
@@ -69,4 +70,5 @@ export {
   Message,
   OrderItems,
   ProductReviews,
+  Modal,
 };

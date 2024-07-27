@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { Loading } from "../../components";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import axios from "axios";
-
+import { Helmet } from "react-helmet";
 const UserProfile = () => {
   const { user } = useContext(AuthContext);
   const [info, setInfo] = useState({});
@@ -62,6 +62,11 @@ const UserProfile = () => {
   }
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Hồ sơ của tôi</title>
+        <meta name="description" content="FAF - Thời trang nam nữ" />
+      </Helmet>
       {isLoading && <Loading />}
       <div className="container mx-auto px-4 mt-40 mb-16">
         <div className="bg-white overflow-hidden shadow rounded-lg border">

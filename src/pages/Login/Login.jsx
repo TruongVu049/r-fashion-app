@@ -4,7 +4,8 @@ import { useAuth } from "../../hooks/useAuth";
 import axios from "axios";
 import { Loading } from "../../components";
 
-const EMAIL_REGEX = /^[\w.+\-]+@gmail\.com$/;
+const EMAIL_REGEX =
+  /^(([^<>()\[\]\.,;:\s@\"  ]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -12,7 +13,6 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errMsg, setErrMsg] = useState({
     errEmail: "",
-    errPwd: "",
     errAuth: "",
   });
 
@@ -24,9 +24,11 @@ const Login = () => {
     const v1 = EMAIL_REGEX.test(email);
     if (!v1) {
       ignore = true;
-      setErrMsg({
-        ...errMsg,
-        errEmail: "Email không hợp lệ",
+      setErrMsg((errMsg) => {
+        return {
+          ...errMsg,
+          errEmail: "Email không hợp lệ",
+        };
       });
     }
     if (!ignore) {
@@ -75,12 +77,7 @@ const Login = () => {
       <div>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="mt-24 sm:mx-auto sm:w-full sm:max-w-sm shadow-2xl p-5 rounded-2xl duration-300 ease-linear">
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-6"
-              action="#"
-              method="POST"
-            >
+            <form onSubmit={handleSubmit} className="space-y-4" method="POST">
               <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                 {"Đăng nhập"}
               </h2>
@@ -138,7 +135,6 @@ const Login = () => {
                     id="password"
                     name="password"
                     type="password"
-                    autoComplete="current-password"
                     required
                     onChange={(e) => {
                       setPwd(e.target.value);
@@ -151,11 +147,6 @@ const Login = () => {
                     className="block w-full rounded-md border-0 py-2 px-1 text-gray-900 shadow-sm ring-1 ring-inset ring-titleSMColor placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rose-300 sm:text-sm sm:leading-6"
                   />
                 </div>
-                {errMsg.errPwd && (
-                  <span className="text-xs text-primaryColor">
-                    {errMsg.errPwd}
-                  </span>
-                )}
               </div>
               {errMsg.errAuth && (
                 <span className="text-xs text-primaryColor mt-0">
@@ -165,7 +156,7 @@ const Login = () => {
               <div>
                 <button
                   type="submit"
-                  className="flex w-full justify-center rounded-md bg-secondColor px-3 py-2 px-1 text-sm font-semibold leading-6 text-while10Color shadow-sm hover:bg-primaryColor focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="flex w-full justify-center rounded-md bg-secondColor px-3 py-2 text-sm font-semibold leading-6 text-while10Color shadow-sm hover:bg-primaryColor focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   {"Đăng nhập"}
                 </button>
@@ -173,7 +164,7 @@ const Login = () => {
             </form>
 
             <div>
-              <p className="mt-10 text-center text-sm text-gray-500">
+              <p className="mt-4 text-center text-sm text-gray-500">
                 Bạn đã có tài khoản
                 <Link
                   to="/register"

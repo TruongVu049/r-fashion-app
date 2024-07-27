@@ -8,6 +8,7 @@ import { Accordion, Gallery } from "../../components";
 import { useState } from "react";
 import axios from "axios";
 import FormatPrice from "../../Helpers/FormatPrice";
+import { Helmet } from "react-helmet";
 const ProductDetail = () => {
   const { productId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +38,14 @@ const ProductDetail = () => {
 
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{product?.name ?? "Sản phẩm"}</title>
+        <meta
+          name="description"
+          content={product?.desct ?? "FAF - Thời trang nam nữ"}
+        />
+      </Helmet>
       <div className="my-10">
         {isLoading ? (
           <section className="py-12  sm:py-16">

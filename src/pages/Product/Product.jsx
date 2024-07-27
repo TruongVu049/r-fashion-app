@@ -8,7 +8,7 @@ import {
 } from "../../components";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
-
+import { Helmet } from "react-helmet";
 const limit = 8;
 const SanPham = () => {
   const [isShowFilter, setIsShowFilter] = useState(false);
@@ -72,6 +72,11 @@ const SanPham = () => {
 
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Sản phẩm {search ? " - " + search : ""}</title>
+        <meta name="description" content="FAF - Thời trang nam nữ" />
+      </Helmet>
       <Breadcrumb title={"tất cả sản phẩm"} namePage={"sản phẩm"} />
       <section className="bg-gray-100">
         <div className="xl:container mx-auto lg:container sm:container">

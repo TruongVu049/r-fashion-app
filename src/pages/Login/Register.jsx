@@ -1,9 +1,15 @@
 import { useState } from "react";
-import { PopupModal, Loading } from "../../components";
+import { PopupModal, Loading, Modal } from "../../components";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineCheckCircle } from "react-icons/ai";
+import { FaRegCircleXmark } from "react-icons/fa6";
 import axios from "axios";
-const EMAIL_REGEX = /^[\w.+\-]+@gmail\.com$/;
+const EMAIL_REGEX =
+  /^(([^<>()\[\]\.,;:\s@\"  ]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+const PASS_REGEX =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,55}$/;
+const NAME_REGEX = /[!@#\$%\^\&*\)\(+=._-]/;
+
 const Register = () => {
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
@@ -15,37 +21,55 @@ const Register = () => {
     errPwd: "",
     errMatchPwd: "",
   });
-  const [success, setSuccess] = useState(false);
+  const [stateForm, setStateForm] = useState(0); // 0: pending, 1: success, 2: error
   const [isLoading, setIsLoading] = useState(false);
+
   const navigate = new useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let ignore = false;
+    let isValid = true;
     const v1 = EMAIL_REGEX.test(email);
     if (!v1) {
-      ignore = true;
-      setErrMsg({
-        ...errMsg,
-        errEmail: "Email không hợp lệ",
+      isValid = false;
+      setErrMsg((errMsg) => {
+        return {
+          ...errMsg,
+          errEmail: "Email không hợp lệ",
+        };
       });
     }
-    if (fullName.length === "") {
-      ignore = true;
-      setErrMsg({
-        ...errMsg,
-        errFullName: "Vui lòng điền vào tên của bạn!",
+    if (NAME_REGEX.test(fullName)) {
+      isValid = false;
+      setErrMsg((errMsg) => {
+        return {
+          ...errMsg,
+          errFullName: "Họ tên không được phép chứa ký tự đặc biệt!",
+        };
       });
     }
-
-    if (pwd !== matchPwd) {
-      ignore = true;
-      setErrMsg({
-        ...errMsg,
-        errMatchPwd: "Mật khẩu xác nhận không khớp",
+    const v2 = PASS_REGEX.test(pwd);
+    if (!v2) {
+      isValid = false;
+      setErrMsg((errMsg) => {
+        return {
+          ...errMsg,
+          errPwd:
+            "Mật khẩu phải tối thiểu tám ký tự, ít nhất một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt!",
+        };
       });
+    } else {
+      if (pwd !== matchPwd) {
+        isValid = false;
+        setErrMsg((errMsg) => {
+          return {
+            ...errMsg,
+            errMatchPwd: "Mật khẩu xác nhận không khớp!",
+          };
+        });
+      }
     }
-    if (!ignore) {
+    if (isValid) {
       setIsLoading(true);
       axios
         .post(
@@ -56,18 +80,18 @@ const Register = () => {
           )}`
         )
         .then((res) => {
-          setSuccess(true);
+          setStateForm(1);
         })
-        .then(() => {
-          setTimeout(() => {
-            navigate("/login");
-          }, 1500);
-        })
+        // .then(() => {
+        //   setTimeout(() => {
+        //     navigate("/login");
+        //   }, 1500);
+        // })
         .catch((error) => {
           if (error.response.status) {
             setErrMsg({
               ...errMsg,
-              errEmail: "Emali đã tồn tại",
+              errEmail: "Emali đã được sử dụng. Vui lòng sử dụng email khác!",
             });
           }
         })
@@ -82,12 +106,7 @@ const Register = () => {
       <div>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="mt-24 sm:mx-auto sm:w-full sm:max-w-sm shadow-2xl p-5 rounded-2xl duration-300 ease-linear">
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-6"
-              action="#"
-              method="POST"
-            >
+            <form onSubmit={handleSubmit} className="space-y-6" method="POST">
               <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                 {"Đăng ký"}
               </h2>
@@ -103,7 +122,6 @@ const Register = () => {
                     id="email"
                     name="email"
                     type="email"
-                    autoComplete="email"
                     required
                     onChange={(e) => {
                       setEmail(e.target.value);
@@ -117,7 +135,7 @@ const Register = () => {
                   />
                 </div>
                 {errMsg.errEmail && (
-                  <span className="text-xs text-primaryColor">
+                  <span className="md:mt-2 mt-1 text-xs text-primaryColor">
                     {errMsg.errEmail}
                   </span>
                 )}
@@ -137,7 +155,6 @@ const Register = () => {
                       id="username"
                       name="username"
                       type="text"
-                      autoComplete="username"
                       required
                       onChange={(e) => {
                         setFullName(e.target.value);
@@ -150,12 +167,12 @@ const Register = () => {
                     />
                   </div>
                   {errMsg.errFullName && (
-                    <span className="text-xs text-primaryColor">
+                    <span className="md:mt-2 mt-1 text-xs text-primaryColor">
                       {errMsg.errFullName}
                     </span>
                   )}
                 </div>
-                <div className="mt-5">
+                <div className="mt-4">
                   <div className="flex items-center justify-between duration-300 ease-linear">
                     <label
                       htmlFor="password"
@@ -169,7 +186,6 @@ const Register = () => {
                       id="password"
                       name="password"
                       type="password"
-                      autoComplete="current-password"
                       required
                       onChange={(e) => {
                         setPwd(e.target.value);
@@ -182,12 +198,12 @@ const Register = () => {
                     />
                   </div>
                   {errMsg.errPwd && (
-                    <span className="text-xs text-primaryColor">
+                    <span className="md:mt-2 mt-1 text-xs text-primaryColor">
                       {errMsg.errPwd}
                     </span>
                   )}
                 </div>
-                <div className="mt-5">
+                <div className="mt-4">
                   <div className="flex items-center justify-between">
                     <label
                       htmlFor="password-confirm"
@@ -201,7 +217,6 @@ const Register = () => {
                       id="password-confirm"
                       name="password-confirm"
                       type="password"
-                      autoComplete="current-password"
                       required
                       onChange={(e) => {
                         setMatchPwd(e.target.value);
@@ -214,7 +229,7 @@ const Register = () => {
                     />
                   </div>
                   {errMsg.errMatchPwd && (
-                    <span className="text-xs text-primaryColor">
+                    <span className="md:mt-2 mt-1 text-xs text-primaryColor">
                       {errMsg.errMatchPwd}
                     </span>
                   )}
@@ -223,7 +238,7 @@ const Register = () => {
               <div>
                 <button
                   type="submit"
-                  className="flex w-full justify-center rounded-md bg-secondColor px-3 py-2 px-1 text-sm font-semibold leading-6 text-while10Color shadow-sm hover:bg-primaryColor focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="flex w-full justify-center rounded-md bg-secondColor px-3 py-2 text-sm font-semibold leading-6 text-while10Color shadow-sm hover:bg-primaryColor focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   {"Đăng Ký"}
                 </button>
@@ -244,26 +259,49 @@ const Register = () => {
           </div>
         </div>
       </div>
-      {success ? (
-        <PopupModal>
-          <div className="relative bg-while10Color p-4 rounded-lg">
-            {/* header */}
-            <h2 className="p-2 text-base font-semibold border-b-2 mx-[-16px]">
-              Thông báo
-            </h2>
-            {/* body */}
-            <div className="flex gap-3 items-center justify-center text-lg p-4">
-              <span className="text-4xl text-green-500">
-                <AiOutlineCheckCircle />
-              </span>
-              <h2>Đăng ký tài khoản thành công</h2>
+
+      {stateForm !== 0 ? (
+        <Modal
+          onClose={() => {
+            setStateForm(0);
+          }}
+          title={"Thông báo"}
+        >
+          <div className="relative bg-white rounded-lg">
+            <div className="flex gap-3 items-center justify-center text-lg">
+              {stateForm === 1 ? (
+                <span className="text-4xl text-green-500">
+                  <AiOutlineCheckCircle />
+                </span>
+              ) : (
+                <span className="text-4xl text-rose-500">
+                  <FaRegCircleXmark />
+                </span>
+              )}
+              <h2>
+                {stateForm === 1
+                  ? "Đăng ký tài khoản thành công"
+                  : "Đăng ký tài khoản không thành công. "}
+              </h2>
             </div>
-            {/* footer */}
-            <h2 className="p-2 pt-4 text-sm text-center  border-t-2 mx-[-16px] mb-[-20px]">
-              Quay trở lại đăng nhập sau 1s
-            </h2>
+            {stateForm === 1 ? (
+              <h2 className="mt-2 p-2 pt-4 text-sm text-center  border-t-2 border-gray-200">
+                Quay trở lại{" "}
+                <Link
+                  to={"/login"}
+                  className="inline-block text-blue-600 hover:underline hover:text-blue-700"
+                >
+                  {" "}
+                  đăng nhập
+                </Link>
+              </h2>
+            ) : (
+              <h2 className="mt-2 p-2 pt-4 text-sm text-center  border-t-2 border-gray-200">
+                Vui lòng thực hiện lại!
+              </h2>
+            )}
           </div>
-        </PopupModal>
+        </Modal>
       ) : null}
 
       {isLoading && <Loading />}

@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { Breadcrumb, ProductTable, CartTotal } from "../../components";
 import axios from "axios";
 import { useCartContext } from "../../context/CartContext";
+import { Helmet } from "react-helmet";
 const ShoppingCart = () => {
   const { refreshCart } = useCartContext();
   const { user } = useContext(AuthContext);
@@ -89,6 +90,11 @@ const ShoppingCart = () => {
 
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Giỏ hàng</title>
+        <meta name="description" content="FAF - Thời trang nam nữ" />
+      </Helmet>
       <Breadcrumb title={"Giỏ Hàng"} namePage={"Giỏ hàng"} />
       <div className="container mx-auto px-4">
         <div className="mt-20 mb-10 relative overflow-x-auto shadow-xl sm:rounded-lg">

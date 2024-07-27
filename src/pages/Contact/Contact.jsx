@@ -1,9 +1,15 @@
 import { Breadcrumb } from "../../components";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { AiOutlinePhone, AiOutlineMail } from "react-icons/ai";
+import { Helmet } from "react-helmet";
 const Contact = () => {
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Bài viết</title>
+        <meta name="description" content="FAF - Thời trang nam nữ" />
+      </Helmet>
       <Breadcrumb title={"Contact"} namePage={"Contact"} />
       <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
         <div
