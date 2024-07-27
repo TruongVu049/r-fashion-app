@@ -23,86 +23,89 @@ import { Suspense } from "react";
 export default function App() {
   const { user, logout } = useAuth();
   return (
-    <AuthContext.Provider value={{ user, logout }}>
-      <CartProvider>
-        <BrowserRouter>
-          <Wrapper>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                {/* public routes */}
-                <Route index element={<Home />} />
-                <Route
-                  path="product"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <SanPham />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="/product/:productId"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <ProductDetail />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="contact"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <Contact />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="blog"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <Blog />
-                    </Suspense>
-                  }
-                />
-                <Route element={<Anonymous />}>
-                  <Route path="login" element={<Login />} />
-                </Route>
-                <Route element={<Anonymous />}>
-                  <Route path="register" element={<Register />} />
-                </Route>
+    <>
+      <AuthContext.Provider value={{ user, logout }}>
+        <CartProvider>
+          <BrowserRouter>
+            <Wrapper>
+              <Routes>
+                <Route path="/" element={<Layout />}>
+                  {/* public routes */}
+                  <Route index element={<Home />} />
+                  <Route
+                    path="product"
+                    element={
+                      <Suspense fallback={<Loading />}>
+                        <SanPham />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="/product/:productId"
+                    element={
+                      <Suspense fallback={<Loading />}>
+                        <ProductDetail />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="contact"
+                    element={
+                      <Suspense fallback={<Loading />}>
+                        <Contact />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="blog"
+                    element={
+                      <Suspense fallback={<Loading />}>
+                        <Blog />
+                      </Suspense>
+                    }
+                  />
+                  <Route element={<Anonymous />}>
+                    <Route path="login" element={<Login />} />
+                  </Route>
+                  <Route element={<Anonymous />}>
+                    <Route path="register" element={<Register />} />
+                  </Route>
 
-                {/* private routes */}
-                <Route element={<RequireAuth allowedRoles={"USER"} />}>
-                  <Route path="shoppingCart" element={<ShoppingCart />} />
+                  {/* private routes */}
+                  <Route element={<RequireAuth allowedRoles={"USER"} />}>
+                    <Route path="shoppingCart" element={<ShoppingCart />} />
+                  </Route>
+                  <Route element={<RequireAuth allowedRoles={"USER"} />}>
+                    <Route
+                      path="order"
+                      element={
+                        <Suspense fallback={<Loading />}>
+                          <Order />
+                        </Suspense>
+                      }
+                    />
+                  </Route>
+                  <Route element={<RequireAuth allowedRoles={"USER"} />}>
+                    <Route path="profile" element={<UserProfile />} />
+                  </Route>
+                  <Route element={<RequireAuth allowedRoles={"USER"} />}>
+                    <Route
+                      path="checkout"
+                      element={
+                        <Suspense fallback={<Loading />}>
+                          <Checkout />
+                        </Suspense>
+                      }
+                    />
+                  </Route>
+                  <Route path="*" element={<NoPage />} />
                 </Route>
-                <Route element={<RequireAuth allowedRoles={"USER"} />}>
-                  <Route
-                    path="order"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <Order />
-                      </Suspense>
-                    }
-                  />
-                </Route>
-                <Route element={<RequireAuth allowedRoles={"USER"} />}>
-                  <Route path="profile" element={<UserProfile />} />
-                </Route>
-                <Route element={<RequireAuth allowedRoles={"USER"} />}>
-                  <Route
-                    path="checkout"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <Checkout />
-                      </Suspense>
-                    }
-                  />
-                </Route>
-                <Route path="*" element={<NoPage />} />
-              </Route>
-            </Routes>
-          </Wrapper>
-        </BrowserRouter>
-      </CartProvider>
-    </AuthContext.Provider>
+              </Routes>
+            </Wrapper>
+          </BrowserRouter>
+        </CartProvider>
+      </AuthContext.Provider>
+      <div id="root-modal"></div>
+    </>
   );
 }
