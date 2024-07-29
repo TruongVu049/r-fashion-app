@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import Logo from "../assets/images/logo.png";
 import { links } from "../constants";
@@ -63,7 +63,6 @@ const Navbar = () => {
             </ul>
             <div className="flex items-center cursor-pointer">
               <SearchBar />
-
               <User />
               <Cart />
               <div
