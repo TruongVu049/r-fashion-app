@@ -211,13 +211,13 @@ export default function Filter({
                 });
               }}
             >
-              Reset form
+              Làm mới
             </button>
             <button
               className="py-3 rounded-md bg-primaryColor text-while10Color duration-200 font-semibold hover:bg-secondColor lg:flex-1 flex-[1_1_100%]"
               type="submit"
             >
-              Filter
+              Áp dụng
             </button>
           </div>
         </form>

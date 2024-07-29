@@ -3,7 +3,6 @@ import Description from "./Description";
 import Reviews from "./Reviews";
 const Accordion = ({ productId, desc }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-
   return (
     <div className="lg:col-span-3">
       <div className="border-b border-gray-300">

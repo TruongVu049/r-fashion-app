@@ -104,7 +104,7 @@ const ProductOptions = ({ product }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <h2 className="mt-8 text-base text-gray-900">Màu sắc</h2>
+        <h2 className="sm:mt-8 mt-5 text-base text-gray-900">Màu sắc</h2>
         <div className="mt-3 flex select-none flex-wrap items-center gap-1">
           {product.Product_Images.map((item, index) => {
             return (
@@ -128,7 +128,7 @@ const ProductOptions = ({ product }) => {
         </div>
         {options && (
           <>
-            <h2 className="mt-8 text-base text-gray-900">Size</h2>
+            <h2 className="sm:mt-8 mt-5 text-base text-gray-900">Size</h2>
             <div className="mt-3 flex select-none flex-wrap items-center gap-1">
               {options.map((item, index) => {
                 return (
@@ -161,7 +161,7 @@ const ProductOptions = ({ product }) => {
             </div>
           </>
         )}
-        <div className="mt-10">
+        <div className="sm:mt-10 mt-6">
           {err && (
             <p className="mt-2 text-lg text-[#dc2626]">
               Vui lòng chọn size và màu sắc

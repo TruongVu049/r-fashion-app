@@ -32,7 +32,7 @@ const Reviews = ({ productId }) => {
   return (
     <>
       {isLoading ? (
-        <section className="">
+        <section className="mt-2">
           <div className="container mx-auto">
             <div className="animate-pulse">
               <div className="h-12  flex items-center justify-center mb-4 bg-gray-200 rounded-md "></div>
@@ -41,7 +41,7 @@ const Reviews = ({ productId }) => {
           </div>
         </section>
       ) : (
-        <div className="border border-gray-300 pt-4 rounded-md">
+        <div className="mt-2">
           {reviews && reviews.length === 0 ? (
             <div className="text-gray-500 flex justify-center flex-col items-center">
               <LiaGrinStars className="sm:text-8xl text-6xl" />
@@ -50,39 +50,56 @@ const Reviews = ({ productId }) => {
               </span>
             </div>
           ) : (
-            <div className="px-3">
+            <div className="">
               {reviews.map((item) => {
                 return (
-                  <div className="border-b border-gray-300 py-3">
-                    <div className="flex items-center justify-start gap-2">
-                      <div>
-                        <FaRegUserCircle className="md:text-5xl text-3xl text-gray-400" />
-                      </div>
-                      <div>
-                        <h6 className="text-gray-800 sm:text-lg text-base">
-                          {item.fullName}
-                        </h6>
-                        <div className="flex items-center  pb-1.5">
-                          {[...Array(5)].map((i, index) => {
-                            if (item.star >= index + 1) {
-                              return (
-                                <BiSolidStar className="block h-4 w-4 align-middle text-yellow-500" />
-                              );
-                              // index = 3, product.avgstar = 2.4
-                              // > 0 <= 0.5
-                              // > 0.5
-                            } else {
-                              return (
-                                <BiStar className="block h-4 w-4 align-middle text-yellow-500" />
-                              );
-                            }
-                          })}
+                  <article className="p-6 pb-3 text-base bg-white border-t border-gray-200">
+                    <footer className=" mb-2">
+                      <div className="flex items-start">
+                        <div className="mr-3 ">
+                          <FaRegUserCircle className="md:text-5xl text-xl text-gray-400" />
                         </div>
-                        <span>{new Date(item.create_at).toLocaleString()}</span>
+                        <div className="flex flex-col">
+                          <div className="">
+                            <p className="text-sm text-gray-900  font-semibold">
+                              {item.fullName}
+                            </p>
+                          </div>
+                          <div className="flex items-center  pb-1.5">
+                            {[...Array(5)].map((i, index) => {
+                              if (item.star >= index + 1) {
+                                return (
+                                  <BiSolidStar className="block h-4 w-4 align-middle text-yellow-500" />
+                                );
+                                // index = 3, product.avgstar = 2.4
+                                // > 0 <= 0.5
+                                // > 0.5
+                              } else {
+                                return (
+                                  <BiStar className="block h-4 w-4 align-middle text-yellow-500" />
+                                );
+                              }
+                            })}
+                          </div>
+                          <div>
+                            <p className=" text-sm text-gray-600 ">
+                              <time
+                                pubdate=""
+                                dateTime="2022-06-23"
+                                title="2024-05-24 20:43:19"
+                              >
+                                {new Date(item.create_at).toLocaleString()}
+                              </time>
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <p className="pt-4 pl-2 text-gray-800">{item.content}</p>
-                  </div>
+                    </footer>
+                    <p className="text-gray-500 dark:text-gray-400">
+                      {item.content}
+                    </p>
+                    <div className="flex items-center mt-4 space-x-4"></div>
+                  </article>
                 );
               })}
             </div>

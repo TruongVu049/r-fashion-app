@@ -6,7 +6,7 @@ const Gallery = ({ images }) => {
   return (
     <div className="lg:flex lg:items-start">
       <div className="lg:order-2 lg:ml-5">
-        <div className="max-w-xl overflow-hidden rounded-lg">
+        <div className="max-w-xl overflow-hidden rounded-lg flex items-center justify-center">
           <ImageComponent
             src={activeShow.image}
             height={"h-96 w-96"}

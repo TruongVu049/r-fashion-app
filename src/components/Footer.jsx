@@ -1,6 +1,7 @@
-import { BsInstagram, BsTwitter } from "react-icons/bs";
+import { BsInstagram } from "react-icons/bs";
 import { LiaYoutube } from "react-icons/lia";
 import { policy } from "../constants";
+import { FaFacebook } from "react-icons/fa";
 const Footer = () => {
   return (
     <>
@@ -52,11 +53,10 @@ const Footer = () => {
             <ul>
               <li className="text-titleMColor text-[15px] mb-[10px]">
                 <strong>Địa chỉ: </strong>
-                140 Lê Trọng Tấn, Tây Thạnh, Tân Phú, Thành phố Hồ Chí Minh,
-                Việt Nam
+                Quận 4, Thành phố Hồ Chí Minh, Việt Nam
               </li>
               <li className="text-titleMColor text-[15px] mb-[10px]">
-                <strong>Điện thoại: </strong>090 789 3879
+                <strong>Điện thoại: </strong>0999999999
               </li>
               <li className="text-titleMColor text-[15px] mb-[10px]">
                 <strong>THời gian làm việc: </strong>08h00 - 22h00
@@ -94,7 +94,7 @@ const Footer = () => {
                 <LiaYoutube className="group-hover/item:text-primaryColor text-xl duration-500" />
               </div>
               <div className=" group/item cursor-pointer hover:border-[#ff4545] duration-500 p-3 rounded-xl border-solid border-2 border-[#999999]">
-                <BsTwitter className="group-hover/item:text-primaryColor text-xl duration-500" />
+                <FaFacebook className="group-hover/item:text-primaryColor text-xl duration-500" />
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@ const Footer = () => {
       </div>
       <div className="bg-[#e7e8e8] text-center">
         <div className="xl:container mx-auto lg:container sm:container">
-          <p className="text-[15px] text-titleMColor p-5">© 2023 by VU.</p>
+          <p className="text-[15px] text-titleMColor p-5">© 2024 by VU.</p>
         </div>
       </div>
     </>

@@ -25,21 +25,21 @@ const deals = [
     id: 1,
     title: "Nón",
     content: "Giảm giá 20%",
-    href: "/product",
+    href: "/product?filterGender=&filterType=CAT_HAT__&priceMin=0&priceMax=3000000&page=1",
     img: ImgQC1,
   },
   {
     id: 2,
     title: "Áo",
     content: "Giảm giá 20%",
-    href: "/product",
+    href: "/product?filterGender=&filterType=CAT_SHIRT__&priceMin=0&priceMax=3000000&page=1",
     img: ImgQC3,
   },
   {
     id: 2,
     title: "Quần",
     content: "Giảm giá 20%",
-    href: "/product",
+    href: "/product?filterGender=&filterType=CAT_PANTS__&priceMin=0&priceMax=3000000&page=1",
     img: ImgQC2,
   },
 ];
@@ -79,11 +79,11 @@ export default function Banner() {
           {deals?.map((item) => (
             <div
               key={item.id}
-              className="relative rounded-2xl overflow-hidden "
+              className="relative rounded-2xl overflow-hidden h-48"
             >
               <ImageComponent
                 src={item.img}
-                height={"sm:h-52 h-80 z-0"}
+                height={"sm:h-52 h-48 z-0"}
                 cusClass={""}
                 alt="Banner Image"
               />

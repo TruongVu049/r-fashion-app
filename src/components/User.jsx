@@ -6,9 +6,22 @@ const User = () => {
   const { user, logout } = useContext(AuthContext);
   return (
     <Link to={`${user?.toKen ? "/profile" : "/login"}`}>
-      <div className="p-[10px] hover:text-primaryColor duration-300 relative">
+      <div className="p-[10px]  duration-300 relative">
         {!user.toKen ? (
-          <FaRegUser className="text-[20px]" />
+          <>
+            <div className="lg:flex items-center gap-4  hidden">
+              <Link className="hover:text-rose-500" to={"/login"}>
+                Đăng nhập
+              </Link>
+              <Link
+                className="text-white bg-rose-500 hover:bg-rose-600 rounded-md px-4 py-2"
+                to={"/register"}
+              >
+                Đăng ký
+              </Link>
+            </div>
+            <FaRegUser className="text-[20px] lg:hidden block" />
+          </>
         ) : (
           <>
             <div className="group duration-200 flex relative">

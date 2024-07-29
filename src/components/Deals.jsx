@@ -27,7 +27,7 @@ const Deals = () => {
       .get(`${process.env.REACT_APP_API_KEY}api/${clActionName}`)
       .then((res) => {
         if (res.status === 200) {
-          setProduct(res.data);
+          if (!ignore) setProduct(res.data);
         }
       })
       .then(() => {
@@ -78,7 +78,7 @@ const Deals = () => {
               {product.map((item, index) => {
                 return (
                   <div className="border border-gray-100  rounded-md relative">
-                    {activeIndex == 0 && (
+                    {activeIndex === 0 && (
                       <span className="absolute top-0 right-0 bg-blue-100 text-blue-800 sm:text-base text-sm font-medium me-2 px-2.5 py-0.5 rounded-full z-50 mt-2 ">
                         Mới
                       </span>
@@ -90,7 +90,7 @@ const Deals = () => {
                       brand={item.brand}
                       price={item.price}
                       Img={item.image}
-                      height={"lg:h-72 md:h-64 sm:h-56 h-52"}
+                      height={"xl:h-80 lg:h-72 md:h-64 sm:h-56 h-52"}
                     />
                   </div>
                 );

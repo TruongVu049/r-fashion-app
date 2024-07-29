@@ -34,6 +34,7 @@ import OrderItems from "./OrderItems";
 import ProductReviews from "./ProductReviews";
 import Loading from "./Loading";
 import Modal from "./Modal";
+import RecommendPD from "./RecommendPD";
 export {
   Navbar,
   Loading,
@@ -71,4 +72,5 @@ export {
   OrderItems,
   ProductReviews,
   Modal,
+  RecommendPD,
 };

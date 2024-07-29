@@ -9,7 +9,9 @@ const CardSkeleton = ({ height }) => {
       >
         <div
           className={`${
-            height ? height : "xl:h-56 lg:h-44 h-40"
+            height
+              ? height
+              : "xl:h-[224px] lg:h-[213px] md:h-[156px] sm:h-[240px] h-[184px]"
           } flex items-center justify-center  mb-4 bg-gray-200 rounded`}
         ></div>
         <div className="px-3 pb-3">

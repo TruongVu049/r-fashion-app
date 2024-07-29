@@ -35,7 +35,9 @@ const Product = ({ productList, status, limit }) => {
                   price={item.price}
                   Img={item.image}
                   avgStar={item.avgStar}
-                  height={"xl:h-[217px] lg:h-[213px] md:h-[156px] h-[auto]"}
+                  height={
+                    "xl:h-[224px] lg:h-[213px] md:h-[156px] sm:h-[240px] h-[184px]"
+                  }
                 />
               );
             })}
