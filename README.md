@@ -6,7 +6,7 @@
   <h1 align="center">R-Fashion</h1>
 </p>
 
-## Future Features
+## Features
 
 - Home 
 - Detail products
