@@ -43,5 +43,5 @@
   "devDependencies": {
     "tailwindcss": "^3.3.2"
   },
-  "proxy": "http://faf.somee.com/api"
+  "proxy": "https://nguyenvuxxaaaa2.bsite.net/api"
 }
